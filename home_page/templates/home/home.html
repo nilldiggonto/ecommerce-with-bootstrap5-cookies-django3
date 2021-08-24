@@ -110,7 +110,7 @@
         
     </div>
 
-    <div class="splide">
+    <div class="splide homesplide">
         <div class="splide__track">
             <ul class="splide__list">
                 <li class="splide__slide">
@@ -308,3 +308,16 @@
 
 </div>
 {%endblock content%}
+
+
+{%block script%}
+<script>
+    new Splide( '.homesplide', {
+         type   : 'loop',
+         perPage: 4,
+         focus  : 'center',
+         autoplay    : true,
+         pauseOnHover: true,
+     } ).mount();
+ </script>
+{%endblock script%}

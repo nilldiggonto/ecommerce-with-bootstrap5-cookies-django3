@@ -8,3 +8,7 @@ def homeView(request):
 def category(request):
     template_name = 'home/category.html'
     return render(request,template_name)
+
+def singleView(request):
+    template_name = 'home/single_page.html'
+    return render(request,template_name)
