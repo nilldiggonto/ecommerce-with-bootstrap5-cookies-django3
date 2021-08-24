@@ -1,0 +1,40 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&family=Ubuntu:wght@300;400;500;700&display=swap');
+
+body{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.navbar{
+    font-family: 'Staatliches', cursive;
+}
+
+.base-font{
+    font-family: 'Staatliches', cursive !important;
+    /* letter-spacing: ; */
+}
+
+.accordion-button{
+    background-color: #d5e933 !important;
+}
+
+.category a:hover{
+    background-color:#d4e933a1;
+    transition: 2sec;
+    transition: 0.3s;
+}
+
+.bg-slider{
+    background-color: rgba(0, 0, 0, 0.438);
+}
+
+.bg-category{
+    background-attachment: fixed;
+    background-size: contain;
+}
+
+.category-dropdown{
+    position: absolute;
+    background: #ffffff;
+    width: 21%;
+}

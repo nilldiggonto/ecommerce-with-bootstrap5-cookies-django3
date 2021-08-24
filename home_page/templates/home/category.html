@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{%block title %}Category{%endblock title%}
+
+{%block content%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <span class="ps-2"><i class="uil uil-align-left-justify"></i> <b>ALL CATEGORY</b></span>
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="category text-left category-dropdown">
+                        <a href="{%url 'category' %}" class="p-2 ps-4 d-block">Fresh Meat</a>
+                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
+                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
+                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
+                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
+                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
+                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
+                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
+                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
+                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
+                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
+
+
+                    </div>
+                  </div>
+                </div>
+                <!----> 
+              </div><!--accordion-->
+        </div><!--col-3-->
+
+        <div class="col-md-9">
+            <div class="row g-0">
+                <div class="col-8">
+                    <form action="">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control p-3" placeholder="what do you need?" aria-label="Username">
+                            <span class="input-group-text">SEARCH</span>
+                          </div>
+                    </form>
+                </div>
+
+              <div class="col-4">
+                <div class="d-flex justify-content-center">
+                    <a href="#" class="mt-2">Call</a>
+                    <div class="ps-3">
+                        <span class="fw-bold">01627566047</span> <br>
+                    <span>support 24/7 times</span>
+                    </div>
+                </div>
+              </div>
+            </div><!--row-->
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-2">
+    <div class="p-4  bg-category" style="background-image: url('https://images.unsplash.com/photo-1602984338060-bfddce132ebc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80');">
+        <div class="p-4 text-white bg-slider text-center base-font">
+            <h4>Category shop</h4>
+            <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+                <ol class="breadcrumb text-center">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Library</li>
+                </ol>
+              </nav>
+            </div>
+        
+    </div>
+</div>
+
+
+{%endblock content%}

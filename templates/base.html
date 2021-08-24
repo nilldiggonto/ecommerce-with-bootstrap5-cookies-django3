@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Web tutorials">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="moinulantu">
+    <title>asifEco {%block title %} {%endblock title%}</title>
+
+    <!---==========CSS==============-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+
+    {%include 'partial/navbar.html' %}
+
+    {%block content%}
+
+    {%endblock content%}
+
+    <footer class="footer bg-dark text-white mt-4">
+        <div class="container p-4 text-center">
+          
+            <h4 class="p-4">ECOASIF</h4>
+        </div>
+      </footer>
+    
+    <!--============================JS====================-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+
+    <script>
+       new Splide( '.splide', {
+            type   : 'loop',
+            perPage: 4,
+            focus  : 'center',
+            autoplay    : true,
+            pauseOnHover: true,
+        } ).mount();
+    </script>
+</body>
+</html>
