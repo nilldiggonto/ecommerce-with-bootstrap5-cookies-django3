@@ -10,17 +10,10 @@
                   </h2>
                   <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="category text-left category-dropdown">
-                        <a href="{%url 'category' %}" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
+                      {% for cat in all_category %}
+                      <a href="{{cat.get_absolute_url}}" class="p-2 ps-4 d-block text-decoration-none">{{cat.name}} <span class="ms-auto"><i class="uil uil-arrow-right"></i></span></a>
+                      
+                      {% endfor%}
 
 
                     </div>
@@ -35,16 +28,19 @@
                 <div class="col-md-8">
                     <form action="">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control p-3" placeholder="what do you need?" aria-label="Username">
-                            <span class="input-group-text">SEARCH</span>
+                            <input type="text" class="form-control p-3" placeholder="what do you need?" aria-label="search">
+                            <!-- <span class="input-group-text">SEARCH</span> -->
+                            <span class="input-group-text"><i class="uil uil-search"></i></span>
+
                           </div>
                     </form>
                 </div>
 
               <div class="col-md-4">
                 <div class="d-flex justify-content-center">
-                    <a href="#" class="mt-2">Call</a>
-                    <div class="ps-3">
+                  <a  href="tel:123-456-7890" class="mt-2 bg-secondary p-2 text-light" style="border-radius: 20%;"><i class="uil uil-phone-volume"></i></a>
+                    
+                    <div class="ps-3 text-center">
                         <span class="fw-bold">01627566047</span> <br>
                     <span>support 24/7 times</span>
                     </div>

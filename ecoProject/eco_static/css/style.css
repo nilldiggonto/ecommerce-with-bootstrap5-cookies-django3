@@ -36,7 +36,8 @@ body{
 
 .bg-category{
     background-attachment: fixed;
-    background-size: contain;
+    background-size: cover;
+    
 }
 
 .category-dropdown{
@@ -69,3 +70,14 @@ body{
     opacity: 1;
   }
   
+
+  .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #839405;
+    border-color: #8cc704;
+}
+
+.page-link{
+    color: #8cc704;
+}

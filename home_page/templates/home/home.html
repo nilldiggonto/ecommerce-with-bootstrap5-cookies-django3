@@ -19,7 +19,7 @@
                     <div class="category text-left">
 
                         {% for cat in category %}
-                        <a href="{%url 'category' %}" class="p-2 ps-4 d-block">{{cat.name}} <span class="ms-auto"><i class="uil uil-arrow-right"></i></span></a>
+                        <a href="{{cat.get_absolute_url}}" class="p-2 ps-4 d-block text-decoration-none">{{cat.name}} <span class="ms-auto"><i class="uil uil-arrow-right"></i></span></a>
                         
                         {% endfor%}
                         
@@ -35,16 +35,16 @@
                 <div class="col-md-8">
                     <form action="">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control p-3" placeholder="what do you need?" aria-label="Username">
-                            <span class="input-group-text">SEARCH</span>
+                            <input type="text" class="form-control p-3" placeholder="what do you need?" aria-label="search">
+                            <span class="input-group-text"><i class="uil uil-search"></i></span>
                           </div>
                     </form>
                 </div>
 
               <div class="col-md-4">
                 <div class="d-flex justify-content-center">
-                    <a href="#" class="mt-2">Call</a>
-                    <div class="ps-3">
+                    <a  href="tel:123-456-7890" class="mt-2 bg-secondary p-2 text-light" style="border-radius: 20%;"><i class="uil uil-phone-volume"></i></a>
+                    <div class="ps-3 text-center">
                         <span class="fw-bold">01627566047</span> <br>
                     <span>support 24/7 times</span>
                     </div>
@@ -72,7 +72,7 @@
                               <h5>{{f.subtitle}}</h5>
                               <p>{{f.slogan}}</p>
 
-                              <a href="{% url 'category' %}" class="btn btn-custom p-2" style="width: 30%;"> shop now</a>
+                              <a href="{% url 'category' %}" class="btn btn-custom p-2" style="width: 30%;"><i class="uil uil-store-alt"></i> shop now</a>
                             </div>
                           </div>
                           {% endif %}
@@ -101,7 +101,7 @@
                 <li class="splide__slide">
                   <div class="card me-1">
                       <div class="card-body">
-                        <a href="#" class="text-decoration-none text-center">
+                        <a href="{{cat.get_absolute_url}}" class="text-decoration-none text-center">
                             {% if cat.image %}
                             <img src="{{cat.image.url}}" style="width: 100%; height: 150px; object-fit: cover;" alt="">
                             {% else %}
@@ -160,7 +160,11 @@
                         <div class="img-container">
                             <img src="{{obj.image.url}}" alt="{{obj.name}}" style="width: 100%; height: 200px; object-fit: cover;" >
                             <div class="overlay">
-                              <div><a href="#" class="btn btn-sm fw-bold text-white mt-1">Add to cart</a></div>
+                              <div>
+                                <a href="{{obj.add_to_cart}}" class="btn btn-sm fw-bold text-white mt-1"><i class="uil uil-shopping-cart-alt"></i> Add to cart</a>|
+                                <a href="{{obj.get_absolute_url}}" class="btn btn-sm fw-bold text-white mt-1"><i class="uil uil-angle-up"></i> Info</a>
+
+                              </div>
                             </div>
                           </div>
                         <!--==========-->
