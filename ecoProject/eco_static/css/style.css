@@ -18,6 +18,12 @@ body{
     background-color: #d5e933 !important;
 }
 
+.btn-custom {
+    color: rgb(15, 48, 236);
+    background-color: #d5e933;
+    border-color: #bff00d;
+}
+
 .category a:hover{
     background-color:#d4e933a1;
     transition: 2sec;

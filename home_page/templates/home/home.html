@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {%block title %}| homepage{% endblock title%}
 
@@ -17,19 +17,12 @@
                   </h2>
                   <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="category text-left">
-                        <a href="{%url 'category' %}" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
-                        <a href="#" class="p-2 ps-4 d-block">Fresh Meat</a>
 
-
+                        {% for cat in category %}
+                        <a href="{%url 'category' %}" class="p-2 ps-4 d-block">{{cat.name}} <span class="ms-auto"><i class="uil uil-arrow-right"></i></span></a>
+                        
+                        {% endfor%}
+                        
                     </div>
                   </div>
                 </div>
@@ -68,33 +61,23 @@
                           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
                         </div>
                         <div class="carousel-inner">
-                          <div class="carousel-item active">
-                            <img src="https://images.unsplash.com/photo-1489619547086-641e1c87c3ff?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=721&q=80"
+
+                            {% for f in feature %}
+                                {%if forloop.counter < 4 %}
+                          <div class="carousel-item {%if forloop.counter == 1 %} active {%endif%}">
+                            <img src="{{f.image.url}}"
                              class="d-block" style="width: 95%; height: 350px; object-fit: cover;" alt="...">
                             <div class="carousel-caption  d-md-block bg-slider">
-                              <h5>Vegetable</h5>
-                              <h5>100% Organic</h5>
-                              <p>Some representative placeholder content for the first slide.</p>
+                              <h4>{{f.title}}</h4>
+                              <h5>{{f.subtitle}}</h5>
+                              <p>{{f.slogan}}</p>
 
-                              <a href="#" class="btn btn-info p-2"> shop now</a>
+                              <a href="{% url 'category' %}" class="btn btn-custom p-2" style="width: 30%;"> shop now</a>
                             </div>
                           </div>
-                          <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1517481700215-fddbbf01b509?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
-                             class="d-block" style="width: 95%; height: 350px; object-fit: cover;" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                              <h5>Second slide label</h5>
-                              <p>Some representative placeholder content for the second slide.</p>
-                            </div>
-                          </div>
-                          <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1488489153583-89ce18dd4968?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=667&q=80"
-                             class="d-block" style="width: 95%; height: 350px; object-fit: cover;" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                              <h5>Third slide label</h5>
-                              <p>Some representative placeholder content for the third slide.</p>
-                            </div>
-                          </div>
+                          {% endif %}
+                          {% endfor %}
+
                         </div>
   
                       </div>
@@ -113,87 +96,24 @@
     <div class="splide homesplide">
         <div class="splide__track">
             <ul class="splide__list">
+
+                {% for cat in category %}
                 <li class="splide__slide">
                   <div class="card me-1">
                       <div class="card-body">
-                        <a href="#">
-                            <img src="https://images.unsplash.com/photo-1533756102515-155e3863ee1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80"
-                            style="width: 100%; height: 150px; object-fit: cover;" alt="">
-                            <h5>Name</h5>
+                        <a href="#" class="text-decoration-none text-center">
+                            {% if cat.image %}
+                            <img src="{{cat.image.url}}" style="width: 100%; height: 150px; object-fit: cover;" alt="">
+                            {% else %}
+                            <img src="{% static 'img/noimg.png' %}" style="width: 100%; height: 150px; object-fit: cover;" alt="">
+                            {% endif %}
+                            <h5 class="mt-2">{{cat.name}}</h5>
                         </a>
                       </div>
                   </div>
                 </li>
-                <li class="splide__slide">
-                    <div class="card me-1">
-                        <div class="card-body">
-                          <a href="#">
-                              <img src="https://images.unsplash.com/photo-1533756102515-155e3863ee1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80"
-                              style="width: 100%; height: 150px; object-fit: cover;" alt="">
-                              <h5>Name</h5>
-                          </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="splide__slide">
-                    <div class="card me-1">
-                        <div class="card-body">
-                          <a href="#">
-                              <img src="https://images.unsplash.com/photo-1533756102515-155e3863ee1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80"
-                              style="width: 100%; height: 150px; object-fit: cover;" alt="">
-                              <h5>Name</h5>
-                          </a>
-                        </div>
-                    </div>
-                </li>
+                {% endfor %}
 
-                <li class="splide__slide">
-                    <div class="card me-1">
-                        <div class="card-body">
-                          <a href="#">
-                              <img src="https://images.unsplash.com/photo-1533756102515-155e3863ee1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80"
-                              style="width: 100%; height: 150px; object-fit: cover;" alt="">
-                              <h5>Name</h5>
-                          </a>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="splide__slide">
-                    <div class="card me-1">
-                        <div class="card-body">
-                          <a href="#">
-                              <img src="https://images.unsplash.com/photo-1533756102515-155e3863ee1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80"
-                              style="width: 100%; height: 150px; object-fit: cover;" alt="">
-                              <h5>Name</h5>
-                          </a>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="splide__slide">
-                    <div class="card me-1">
-                        <div class="card-body">
-                          <a href="#">
-                              <img src="https://images.unsplash.com/photo-1533756102515-155e3863ee1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80"
-                              style="width: 100%; height: 150px; object-fit: cover;" alt="">
-                              <h5>Name</h5>
-                          </a>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="splide__slide">
-                    <div class="card me-1">
-                        <div class="card-body">
-                          <a href="#">
-                              <img src="https://images.unsplash.com/photo-1533756102515-155e3863ee1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80"
-                              style="width: 100%; height: 150px; object-fit: cover;" alt="">
-                              <h5>Name</h5>
-                          </a>
-                        </div>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>

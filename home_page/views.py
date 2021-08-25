@@ -1,9 +1,16 @@
 from django.shortcuts import render
+from .models import *
 
 # Create your views here.
 def homeView(request):
     template_name = 'home/home.html'
-    return render(request,template_name)
+    category = Category.objects.filter(active=True)
+    feature = FeaturedSlide.objects.filter(active=True)
+    context = {
+        'category':category,
+        'feature':feature
+    }
+    return render(request,template_name,context)
 
 def category(request):
     template_name = 'home/category.html'
