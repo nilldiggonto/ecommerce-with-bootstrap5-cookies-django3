@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {%block title %}Category{%endblock title%}
 
 {%block content%}
@@ -7,7 +7,7 @@
 {% include 'home/nav_partial.html' %}
 
 <div class="mt-2">
-    <div class="p-4  bg-category" style="background-image: url('https://images.unsplash.com/photo-1602984338060-bfddce132ebc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80');">
+    <div class="p-4  bg-category" style="background-image: url('{% static 'img/items.jpg' %}');">
         <div class="p-4 text-white bg-slider text-center base-font">
             <h4>All Items</h4>
             <nav aria-label="breadcrumb" class="d-flex justify-content-center">
@@ -30,72 +30,27 @@
     <div class="splide catsplide">
         <div class="splide__track">
             <ul class="splide__list">
+
+                {% for obj in product %}
+                    {%if obj.top_sell %}
                 <li class="splide__slide">
                     <div class="card me-2">
                         <div class="card-body">
-                          <a href="#">
-                              <img src="https://images.unsplash.com/photo-1533756102515-155e3863ee1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80"
+                          <a href="#" class="text-decoration-none text-center">
+                              <img src="{{obj.image.url}}"
                               style="width: 100%; height: 150px; object-fit: cover;" alt="">
-                              <h5>Name</h5>
+                              <h5 class="mt-2">{{obj.name}}</h5>
+                              <h5>&#2547;{{obj.price}}</h5>
                           </a>
                         </div>
                     </div>
                 </li>
-                <li class="splide__slide">
-                    <div class="card me-1">
-                        <div class="card-body">
-                          <a href="#">
-                              <img src="https://images.unsplash.com/photo-1533756102515-155e3863ee1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80"
-                              style="width: 100%; height: 150px; object-fit: cover;" alt="">
-                              <h5>Name</h5>
-                          </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="splide__slide">
-                    <div class="card me-1">
-                        <div class="card-body">
-                          <a href="#">
-                              <img src="https://images.unsplash.com/photo-1533756102515-155e3863ee1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80"
-                              style="width: 100%; height: 150px; object-fit: cover;" alt="">
-                              <h5>Name</h5>
-                          </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="splide__slide">
-                    <div class="card me-1">
-                        <div class="card-body">
-                          <a href="#">
-                              <img src="https://images.unsplash.com/photo-1533756102515-155e3863ee1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80"
-                              style="width: 100%; height: 150px; object-fit: cover;" alt="">
-                              <h5>Name</h5>
-                          </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="splide__slide">
-                    <div class="card me-1">
-                        <div class="card-body">
-                          <a href="#">
-                              <img src="https://images.unsplash.com/photo-1533756102515-155e3863ee1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80"
-                              style="width: 100%; height: 150px; object-fit: cover;" alt="">
-                              <h5>Name</h5>
-                          </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="splide__slide">
-                    <div class="card me-1">
-                        <div class="card-body">
-                          <a href="#">
-                              <img src="https://images.unsplash.com/photo-1533756102515-155e3863ee1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80"
-                              style="width: 100%; height: 150px; object-fit: cover;" alt="">
-                              <h5>Name</h5>
-                          </a>
-                        </div>
-                    </div>
-                </li>
+                {%endif%}
+                {%endfor%}
+        
+              
+   
+        
             </ul>
         </div>
     </div>
@@ -106,84 +61,20 @@
     </div>
 
     <div class="row">
-        <div class="col-md-3">
-            <div class="card">
-                <img src="#" style="width: 100%; height: 200px; object-fit: cover;" alt="">
-                <div class="card-body text-center">
-                    <p>Fresh Meat</p>
-                    <h5>$30.00</h5>
-                </div>
-            </div>  
-        </div> <!--col-3-->
-        <div class="col-md-3">
-            <div class="card">
-                <img src="#" style="width: 100%; height: 200px; object-fit: cover;" alt="">
-                <div class="card-body text-center">
-                    <p>Fresh Meat</p>
-                    <h5>$30.00</h5>
-                </div>
-            </div>  
-        </div> <!--col-3-->
 
-        <div class="col-md-3">
+        {% for obj in product %}
+        <div class="col-md-3 mb-1">
             <div class="card">
-                <img src="#" style="width: 100%; height: 200px; object-fit: cover;" alt="">
+                <img src="{{obj.image.url}}" style="width: 100%; height: 200px; object-fit: cover;" alt="">
                 <div class="card-body text-center">
-                    <p>Fresh Meat</p>
-                    <h5>$30.00</h5>
+                    <p>{{obj.name}}</p>
+                    <h5>&#2547;{{obj.price}}</h5>
+                    <!-- <p></p> -->
                 </div>
             </div>  
         </div> <!--col-3-->
-
-        <div class="col-md-3">
-            <div class="card">
-                <img src="#" style="width: 100%; height: 200px; object-fit: cover;" alt="">
-                <div class="card-body text-center">
-                    <p>Fresh Meat</p>
-                    <h5>$30.00</h5>
-                </div>
-            </div>  
-        </div> <!--col-3-->
-
-        <div class="col-md-3">
-            <div class="card">
-                <img src="#" style="width: 100%; height: 200px; object-fit: cover;" alt="">
-                <div class="card-body text-center">
-                    <p>Fresh Meat</p>
-                    <h5>$30.00</h5>
-                </div>
-            </div>  
-        </div> <!--col-3-->
-
-        <div class="col-md-3">
-            <div class="card">
-                <img src="#" style="width: 100%; height: 200px; object-fit: cover;" alt="">
-                <div class="card-body text-center">
-                    <p>Fresh Meat</p>
-                    <h5>$30.00</h5>
-                </div>
-            </div>  
-        </div> <!--col-3-->
-
-        <div class="col-md-3">
-            <div class="card">
-                <img src="#" style="width: 100%; height: 200px; object-fit: cover;" alt="">
-                <div class="card-body text-center">
-                    <p>Fresh Meat</p>
-                    <h5>$30.00</h5>
-                </div>
-            </div>  
-        </div> <!--col-3-->
-
-        <div class="col-md-3">
-            <div class="card">
-                <img src="#" style="width: 100%; height: 200px; object-fit: cover;" alt="">
-                <div class="card-body text-center">
-                    <p>Fresh Meat</p>
-                    <h5>$30.00</h5>
-                </div>
-            </div>  
-        </div> <!--col-3-->
+        {% endfor %}
+    
 
     </div><!--row-->
     <nav aria-label="Page navigation example" class="mt-3">

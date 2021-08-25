@@ -14,7 +14,13 @@ def homeView(request):
 
 def category(request):
     template_name = 'home/category.html'
-    return render(request,template_name)
+
+    product = Products.objects.filter(active=True)
+
+    context = {
+        'product':product
+    }
+    return render(request,template_name,context)
 
 def singleView(request):
     template_name = 'home/single_page.html'
