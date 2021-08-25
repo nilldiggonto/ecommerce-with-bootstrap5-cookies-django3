@@ -39,7 +39,7 @@
 
         <div class="col-md-9">
             <div class="row g-0">
-                <div class="col-8">
+                <div class="col-md-8">
                     <form action="">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control p-3" placeholder="what do you need?" aria-label="Username">
@@ -48,7 +48,7 @@
                     </form>
                 </div>
 
-              <div class="col-4">
+              <div class="col-md-4">
                 <div class="d-flex justify-content-center">
                     <a href="#" class="mt-2">Call</a>
                     <div class="ps-3">
@@ -71,7 +71,7 @@
                           <div class="carousel-item active">
                             <img src="https://images.unsplash.com/photo-1489619547086-641e1c87c3ff?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=721&q=80"
                              class="d-block" style="width: 95%; height: 350px; object-fit: cover;" alt="...">
-                            <div class="carousel-caption d-none d-md-block bg-slider">
+                            <div class="carousel-caption  d-md-block bg-slider">
                               <h5>Vegetable</h5>
                               <h5>100% Organic</h5>
                               <p>Some representative placeholder content for the first slide.</p>
@@ -312,9 +312,16 @@
 
 {%block script%}
 <script>
+    // let page = 4
+    // // console.log(window.innerWidth)
+    // let b = window.innerWidth
+
+    // if (b < 600) {
+    //     page = 1
+    // }
     new Splide( '.homesplide', {
          type   : 'loop',
-         perPage: 4,
+         perPage: page,
          focus  : 'center',
          autoplay    : true,
          pauseOnHover: true,

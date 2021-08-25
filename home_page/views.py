@@ -12,3 +12,7 @@ def category(request):
 def singleView(request):
     template_name = 'home/single_page.html'
     return render(request,template_name)
+
+def cartView(request):
+    template_name = 'home/cart.html'
+    return render(request,template_name)
