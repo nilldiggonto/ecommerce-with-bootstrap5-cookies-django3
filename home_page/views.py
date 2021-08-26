@@ -1,8 +1,8 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 # from django.http import HttpResponse
 from .models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.db.models import Sum
 # Create your views here.
 def homeView(request):
     template_name = 'home/home.html'
@@ -64,8 +64,14 @@ def singleView(request,slug=None):
 def cartView(request):
     template_name = 'home/cart.html'
     all_category =Category.objects.filter(active=True)
+    device = request.COOKIES['device']
+    cart = Cart.objects.filter(device=device,consume=False)
+    total = cart.aggregate(Sum('total'))
+    
     context = {
+        'cart':cart,
         'all_category':all_category,
+        'total':total
 
     }
     return render(request,template_name,context=context)
@@ -75,7 +81,14 @@ def addCart(request,slug=None):
     device = request.COOKIES['device']
     if slug:
         product = get_object_or_404(Products,slug=slug)
-        Cart.objects.create(device=device,product=product,quantity=1,total=product.price)
+        if Cart.objects.filter(product=product,consume=False).exists():
+            cart = Cart.objects.get(product=product)
+            cart.quantity = cart.quantity + 1
+            cart.total = cart.total + product.price
+            cart.save()
+        else:
+            Cart.objects.create(device=device,product=product,quantity=1,total=product.price)
+        return redirect('cart-page')
     # print(device)
     template_name = 'home/cart.html'
     return render(request,template_name)
