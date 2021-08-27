@@ -33,10 +33,13 @@
         <div class="col-md-9">
             <div class="row g-0">
                 <div class="col-md-8">
-                    <form action="">
+                    <form action="{% url 'search-page' %}" method="GET">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control p-3" placeholder="what do you need?" aria-label="search">
-                            <span class="input-group-text"><i class="uil uil-search"></i></span>
+                            <input name="isearch" type="text" class="form-control p-3" placeholder="what do you need?" aria-label="search">
+                            <!-- <span class="input-group-text"><i class="uil uil-search"></i></span>
+                             -->
+                            <button type="submit"  class="input-group-text"><i class="uil uil-search"></i></button>
+
                           </div>
                     </form>
                 </div>

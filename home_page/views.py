@@ -49,6 +49,38 @@ def category(request,slug=None):
     }
     return render(request,template_name,context)
 
+
+def searchview(request):
+    product = None
+    query = None
+    all_category =Category.objects.filter(active=True)
+
+    if request.method == 'GET':
+        query = request.GET.get('isearch')
+        product = Products.objects.filter(name__icontains= query,active=True)
+
+        print(query)
+    template_name = 'home/search.html'
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(product, 8)
+    try:
+        product = paginator.page(page)
+    except PageNotAnInteger:
+        product = paginator.page(1)
+    except EmptyPage:
+        product = paginator.page(paginator.num_pages)
+    context = {
+        'product':product,
+        'query':query,
+        'all_category':all_category,
+        
+
+    }
+    return render(request,template_name,context)
+    
+
 def singleView(request,slug=None):
     template_name = 'home/single_page.html'
     all_category =Category.objects.filter(active=True)
@@ -79,16 +111,28 @@ def cartView(request):
 
 def addCart(request,slug=None):
     device = request.COOKIES['device']
+    # print(device)
+    item = 1
+    if request.method == 'POST':
+        item = request.POST.get('cart')
     if slug:
         product = get_object_or_404(Products,slug=slug)
-        if Cart.objects.filter(product=product,consume=False).exists():
-            cart = Cart.objects.get(product=product)
-            cart.quantity = cart.quantity + 1
+        if Cart.objects.filter(device=device,product=product,consume=False).exists():
+            cart = Cart.objects.get(product=product,device=device)
+            cart.quantity = cart.quantity + int(item)
             cart.total = cart.total + product.price
             cart.save()
         else:
-            Cart.objects.create(device=device,product=product,quantity=1,total=product.price)
+            Cart.objects.create(device=device,product=product,quantity=int(item),total=product.price * int(item))
         return redirect('cart-page')
     # print(device)
     template_name = 'home/cart.html'
     return render(request,template_name)
+
+def deleteCart(request,id=None):
+    cart = Cart.objects.get(pk=id)
+    cart.delete()
+    
+    return redirect('cart-page')
+    # 
+    

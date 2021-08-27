@@ -30,8 +30,8 @@
             </ul>
 
             <ul class="navbar-nav  mb-2 mb-lg-0 ">
-                <li class="nav-item"><a href="{% url 'cart-page' %}" class="nav-link"><i class="uil uil-shopping-cart"></i> Cart</a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><i class="uil uil-brightness-plus"></i> Total: <span class="text-dark">&#x9f3;0.00</span></a></li>
+                <li class="nav-item"><a href="{% url 'cart-page' %}" class="nav-link"><i class="uil uil-shopping-cart"></i> Cart ({{cart_count}})</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="uil uil-brightness-plus"></i> Total: <span class="text-dark">&#x9f3;{{cart_total.total__sum | floatformat:2 }}</span></a></li>
             </ul>
 
          
