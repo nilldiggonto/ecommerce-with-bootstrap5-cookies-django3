@@ -30,6 +30,8 @@
                 <th scope="col">Phone</th>
                 <th scope="col">Name</th>
                 <th scope="col">Status</th>
+                <th scope="col">Info</th>
+
                 {% if request.user.is_authenticated %}
                 <th scope="col">#</th>
                 {%endif%}
@@ -42,10 +44,49 @@
                 <td>{{obj.phone_no}}</td>
                 <td>{{obj.first_name}} {{obj.last_name}}</td>
                 <td>{% if obj.complete %} Delivered {%else%} Pending {%endif%}</td>
+                <td><a data-bs-toggle="modal" data-bs-target="#exampleModal-{{obj.id}}" href="#" class="btn btn-sm btn-warning">view</a></td>
                 {% if request.user.is_authenticated %}
                 <td><a href="#" class="btn btn-info btn-sm">Confirm payment</a></td>
                 {% endif%}
               </tr>
+
+
+              <!--===========================-->
+              <div class="modal fade" id="exampleModal-{{obj.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Requested Product</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <ul class="list-group mb-3">
+                        {%for c in cart %}
+                          {%if c.order.id == obj.id %}
+                      <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="my-0">{{c.product.name}}</h6>
+                          <small class="text-muted">{{c.quantity}} x {{c.product.price}}</small>
+                        </div>
+                        <span class="text-muted">${{c.total}}</span>
+                      </li>
+                      {%endif%}
+                      {% endfor %}
+                      
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (BDT)</span>
+                        <strong>&#x9f3;</strong>
+                      </li>
+                    </ul>
+              
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             {%endfor%}
             </tbody>
           </table>

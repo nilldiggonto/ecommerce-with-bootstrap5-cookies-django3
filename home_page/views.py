@@ -142,10 +142,16 @@ def checkoutDoneView(request):
     template_name = 'home/checkout_done.html'
     device = request.COOKIES['device']
     orders = Order.objects.filter(device_name=device)
+    cart = Cart.objects.filter(device=device)
+    if request.user.is_authenticated:
+        orders = Order.objects.all()
+        cart = Cart.objects.all()
+        
 
     context = {
         'all_category':all_category,
-        'orders':orders
+        'orders':orders,
+        'cart':cart
     }
 
     return render(request,template_name,context=context)
