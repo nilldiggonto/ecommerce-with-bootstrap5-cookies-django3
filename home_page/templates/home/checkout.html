@@ -151,14 +151,16 @@
             <h4 class="mb-3">Payment</h4>
   
             <div class="my-3">
-              <div class="form-check">
-                <input onclick="javascript:yesnoCheck();" id="credit" name="bkash" type="radio" class="form-check-input" checked >
-                <label  class="form-check-label" for="credit">Bkash</label>
-              </div>
-              <div class="form-check">
-                <input onclick="javascript:yesnoCheck();" id="debit" name="cash" type="radio" class="form-check-input" >
-                <label class="form-check-label" for="debit">Cash on delivery</label>
-              </div>
+             
+
+                <div class="form-check">
+                  <input onclick="javascript:yesnoCheck();"  id="credit" name="cash" type="radio" class="form-check-input"  >
+                  <label  class="form-check-label" for="credit">Bkash</label>
+                </div>
+                <div class="form-check">
+                  <input  onclick="javascript:yesnoCheck();" id="debit" name="cash" type="radio" class="form-check-input"  >
+                  <label class="form-check-label" for="debit">Cash on delivery</label>
+                </div> 
               <!-- <div class="form-check">
                 <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
                 <label class="form-check-label" for="paypal">PayPal</label>
@@ -173,7 +175,7 @@
                 </div>
               <div class="col-md-6">
                 <label for="cc-name" class="form-label">Bkash no</label>
-                <input type="text" class="form-control" id="cc-name" name="bkash_no" placeholder="" required>
+                <input type="text" class="form-control" id="cc-name" name="bkash_no" placeholder="" >
                 <div class="invalid-feedback">
                   Name on card is required
                 </div>
@@ -181,7 +183,7 @@
   
               <div class="col-md-6">
                 <label for="cc-number" class="form-label">Bkash transaction no</label>
-                <input type="text" class="form-control" id="cc-number" name="bkash_trans" placeholder="" required>
+                <input type="text" class="form-control" id="cc-number" name="bkash_trans" placeholder="" >
                 <small class="text-muted">make sure you write the right no</small>
 
                 <div class="invalid-feedback">
@@ -216,10 +218,12 @@
     function yesnoCheck() {
         let el = document.getElementById('bkashv')
     if (document.getElementById('credit').checked) {
-        
+      // document.getElementById('debit').checked= false
         el.classList.add("d-flex")
         el.classList.remove("d-none");
     } else {
+      // document.getElementById('credit').checked = false
+      
         el.classList.add("d-none")
         el.classList.remove("d-flex");
         // document.getElementById('bkashv').classList.add("d-none").classList.remove("d-flex");;

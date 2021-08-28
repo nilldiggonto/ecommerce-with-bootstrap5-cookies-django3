@@ -3,6 +3,53 @@
 
 {%block content%}
 
-<h4>done</h4>
+{% include 'home/nav_partial.html' %}
+
+<div class="mt-2">
+    <div class="p-4  bg-category" style="background-image: url('https://images.unsplash.com/photo-1602984338060-bfddce132ebc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80');">
+        <div class="p-4 text-white bg-slider text-center base-font">
+            <h4>CHECK OUT</h4>
+            <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+                <ol class="breadcrumb text-center">
+                  <li class="breadcrumb-item"><a href="{% url 'home-page' %}">Home</a></li>
+                  <!-- <li class="breadcrumb-item"><a href="#">category</a></li> -->
+
+                  <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                </ol>
+              </nav>
+            </div>
+        
+    </div>
+</div>
+
+    <div class="container">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Name</th>
+                <th scope="col">Status</th>
+                {% if request.user.is_authenticated %}
+                <th scope="col">#</th>
+                {%endif%}
+              </tr>
+            </thead>
+            <tbody>
+                {% for obj in orders %}
+              <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{obj.phone_no}}</td>
+                <td>{{obj.first_name}} {{obj.last_name}}</td>
+                <td>{% if obj.complete %} Delivered {%else%} Pending {%endif%}</td>
+                {% if request.user.is_authenticated %}
+                <td><a href="#" class="btn btn-info btn-sm">Confirm payment</a></td>
+                {% endif%}
+              </tr>
+            {%endfor%}
+            </tbody>
+          </table>
+
+    </div>
 
 {%endblock%}

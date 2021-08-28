@@ -59,7 +59,7 @@ def searchview(request):
         query = request.GET.get('isearch')
         product = Products.objects.filter(name__icontains= query,active=True)
 
-        print(query)
+        # print(query)
     template_name = 'home/search.html'
 
     page = request.GET.get('page', 1)
@@ -134,9 +134,27 @@ def deleteCart(request,id=None):
     cart.delete()
     
     return redirect('cart-page')
-    # 
+
+
+def checkoutDoneView(request):
+    all_category =Category.objects.filter(active=True)
+
+    template_name = 'home/checkout_done.html'
+    device = request.COOKIES['device']
+    orders = Order.objects.filter(device_name=device)
+
+    context = {
+        'all_category':all_category,
+        'orders':orders
+    }
+
+    return render(request,template_name,context=context)
+
+
 
 def checkoutView(request):
+    all_category =Category.objects.filter(active=True)
+
     template_name = 'home/checkout.html'
     device = request.COOKIES['device']
     cart = Cart.objects.filter(device=device,consume=False)
@@ -148,13 +166,13 @@ def checkoutView(request):
         email   = request.POST.get('email','nomail@noname.com')
         address = request.POST.get('address')
         address_two = request.POST.get('address_two','nothing')
-        bkash = request.POST.get('bkash','not')
+        # bkash = request.POST.get('bkash','not')
         cash = request.POST.get('cash','not')
         bkash_no = request.POST.get('bkash_no','not')
         bkash_trans = request.POST.get('bkash_trans','not')
 
         payment = 'BKASH'
-        if cash:
+        if bkash_no == 'not':
             payment = 'CASH'
 
 
@@ -173,7 +191,8 @@ def checkoutView(request):
         # cart.save()
 
     context = {
-        'cart':cart
+        'cart':cart,
+        'all_category':all_category
     }
 
 
