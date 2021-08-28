@@ -63,8 +63,29 @@ class Products(models.Model):
         unique_slugify(self,slug_str)
         return super().save(**kwargs)
 
+
+
+class Order(models.Model):
+    device_name = models.CharField(max_length=120,null=True,blank=True)
+    first_name  = models.CharField(max_length=120)
+    last_name   = models.CharField(max_length=120)
+    phone_no    = models.CharField(max_length=120)
+    email       = models.EmailField(max_length=120)
+    address     = models.TextField()
+    address_two = models.TextField()
+    payment     = models.CharField(max_length=120)
+    bkash_no    = models.CharField(max_length=120,null=True,blank=True)
+    bkash_trans = models.CharField(max_length=120,null=True,blank=True)
+    created_at  = models.DateTimeField(auto_now_add=True)
+    updated_at  = models.DateTimeField(auto_now=True)
+    complete    = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.phone_no)
+
 class Cart(models.Model):
     product = models.ForeignKey(Products,on_delete=models.CASCADE,related_name='cart')
+    order   = models.ForeignKey(Order,related_name='order',on_delete=models.CASCADE,null=True,blank=True)
     device  = models.CharField(max_length=300)
     quantity = models.IntegerField()
     total    = models.DecimalField(max_digits=10,decimal_places=2)

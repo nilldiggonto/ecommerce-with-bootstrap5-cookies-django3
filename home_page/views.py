@@ -135,4 +135,46 @@ def deleteCart(request,id=None):
     
     return redirect('cart-page')
     # 
-    
+
+def checkoutView(request):
+    template_name = 'home/checkout.html'
+    device = request.COOKIES['device']
+    cart = Cart.objects.filter(device=device,consume=False)
+
+    if request.method == 'POST':
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        phone   = request.POST.get('phone')
+        email   = request.POST.get('email','nomail@noname.com')
+        address = request.POST.get('address')
+        address_two = request.POST.get('address_two','nothing')
+        bkash = request.POST.get('bkash','not')
+        cash = request.POST.get('cash','not')
+        bkash_no = request.POST.get('bkash_no','not')
+        bkash_trans = request.POST.get('bkash_trans','not')
+
+        payment = 'BKASH'
+        if cash:
+            payment = 'CASH'
+
+
+        order = Order.objects.create(first_name=fname,
+                                        last_name=lname,
+                                        phone_no = phone,
+                                        email=email,
+                                        address= address,
+                                        address_two = address_two,
+                                        payment=payment,
+                                        bkash_no = bkash_no,
+                                        bkash_trans = bkash_trans,
+                                        device_name= device)
+        cart.update(order=order,consume=True)
+        return render(request,'home/checkout_done.html')
+        # cart.save()
+
+    context = {
+        'cart':cart
+    }
+
+
+    return render(request,template_name,context)
