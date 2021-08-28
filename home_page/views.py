@@ -96,7 +96,10 @@ def singleView(request,slug=None):
 def cartView(request):
     template_name = 'home/cart.html'
     all_category =Category.objects.filter(active=True)
-    device = request.COOKIES['device']
+    try:
+        device = request.COOKIES['device']
+    except:
+        return redirect('home-page')
     cart = Cart.objects.filter(device=device,consume=False)
     total = cart.aggregate(Sum('total'))
     
@@ -110,7 +113,10 @@ def cartView(request):
 
 
 def addCart(request,slug=None):
-    device = request.COOKIES['device']
+    try:
+        device = request.COOKIES['device']
+    except:
+        return redirect('home-page')
     # print(device)
     item = 1
     if request.method == 'POST':
@@ -118,7 +124,7 @@ def addCart(request,slug=None):
     if slug:
         product = get_object_or_404(Products,slug=slug)
         if Cart.objects.filter(device=device,product=product,consume=False).exists():
-            cart = Cart.objects.get(product=product,device=device)
+            cart = Cart.objects.get(product=product,device=device,consume=False)
             cart.quantity = cart.quantity + int(item)
             cart.total = cart.total + product.price
             cart.save()
@@ -140,12 +146,25 @@ def checkoutDoneView(request):
     all_category =Category.objects.filter(active=True)
 
     template_name = 'home/checkout_done.html'
-    device = request.COOKIES['device']
-    orders = Order.objects.filter(device_name=device)
+    try:
+        device = request.COOKIES['device']
+    except:
+        return redirect('home-page')
+    orders = Order.objects.filter(device_name=device).order_by('-id')
     cart = Cart.objects.filter(device=device)
     if request.user.is_authenticated:
-        orders = Order.objects.all()
+        orders = Order.objects.all().order_by('-id')
         cart = Cart.objects.all()
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(orders, 15)
+    try:
+        orders = paginator.page(page)
+    except PageNotAnInteger:
+        orders = paginator.page(1)
+    except EmptyPage:
+        orders = paginator.page(paginator.num_pages)
         
 
     context = {
@@ -156,13 +175,20 @@ def checkoutDoneView(request):
 
     return render(request,template_name,context=context)
 
-
+def confirmPaymentView(request,id=None):
+    order = Order.objects.get(pk=id)
+    order.complete = True
+    order.save()
+    return redirect('checkout-done-view')
 
 def checkoutView(request):
     all_category =Category.objects.filter(active=True)
 
     template_name = 'home/checkout.html'
-    device = request.COOKIES['device']
+    try:
+        device = request.COOKIES['device']
+    except:
+        return redirect('home-page')
     cart = Cart.objects.filter(device=device,consume=False)
 
     if request.method == 'POST':
@@ -174,13 +200,18 @@ def checkoutView(request):
         address_two = request.POST.get('address_two','nothing')
         # bkash = request.POST.get('bkash','not')
         cash = request.POST.get('cash','not')
-        bkash_no = request.POST.get('bkash_no','not')
-        bkash_trans = request.POST.get('bkash_trans','not')
+        bkash_no = request.POST.get('bkash_no','')
+        bkash_trans = request.POST.get('bkash_trans','')
 
+        print(bkash_no)
         payment = 'BKASH'
-        if bkash_no == 'not':
+        if bkash_no == '':
             payment = 'CASH'
 
+        
+        cart = Cart.objects.filter(device=device,consume=False)
+        total = cart.aggregate(Sum('total'))
+        # print(total)
 
         order = Order.objects.create(first_name=fname,
                                         last_name=lname,
@@ -191,9 +222,9 @@ def checkoutView(request):
                                         payment=payment,
                                         bkash_no = bkash_no,
                                         bkash_trans = bkash_trans,
-                                        device_name= device)
+                                        device_name= device,total=total['total__sum'])
         cart.update(order=order,consume=True)
-        return render(request,'home/checkout_done.html')
+        return redirect('checkout-done-view')
         # cart.save()
 
     context = {

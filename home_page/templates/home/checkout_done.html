@@ -33,7 +33,7 @@
                 <th scope="col">Info</th>
 
                 {% if request.user.is_authenticated %}
-                <th scope="col">#</th>
+                <!-- <th scope="col">#</th> -->
                 {%endif%}
               </tr>
             </thead>
@@ -43,10 +43,10 @@
                 <th scope="row">{{forloop.counter}}</th>
                 <td>{{obj.phone_no}}</td>
                 <td>{{obj.first_name}} {{obj.last_name}}</td>
-                <td>{% if obj.complete %} Delivered {%else%} Pending {%endif%}</td>
-                <td><a data-bs-toggle="modal" data-bs-target="#exampleModal-{{obj.id}}" href="#" class="btn btn-sm btn-warning">view</a></td>
+                <td>{% if obj.complete %} <span class="badge bg-success">Delivered</span> {%else%} <span class="badge bg-warning">Pending</span> {%endif%}</td>
+                <td><a data-bs-toggle="modal" data-bs-target="#exampleModal-{{obj.id}}" href="#" class="btn btn-sm btn-custom">view</a></td>
                 {% if request.user.is_authenticated %}
-                <td><a href="#" class="btn btn-info btn-sm">Confirm payment</a></td>
+                <!-- <td><a href="#" class="btn btn-info btn-sm">Confirm payment</a></td> -->
                 {% endif%}
               </tr>
 
@@ -75,14 +75,49 @@
                       
                       <li class="list-group-item d-flex justify-content-between">
                         <span>Total (BDT)</span>
-                        <strong>&#x9f3;</strong>
+                        <strong>&#x9f3;{{obj.total}}</strong>
                       </li>
+                      <hr>
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>Main Address</span>
+                        <strong>{{obj.address}}</strong>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>Main Address</span>
+                        <strong>{{obj.address_two}}</strong>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>Phone</span>
+                        <strong>{{obj.phone_no}}</strong>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>Full Name</span>
+                        <strong>{{obj.first_name}} {{obj.last_name}}</strong>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>Payment method</span>
+                        <strong>{{obj.payment}}</strong>
+                      </li>
+                      {% if obj.payment == 'BKASH' %}
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>Bkask no</span>
+                        <strong>{{obj.bkash_no}}</strong>
+                      </li>
+
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>Bkask transaction no</span>
+                        <strong>{{obj.bkash_trans}}</strong>
+                      </li>
+
+                      {%endif%}
                     </ul>
               
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
+                      <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                      <!-- <button type="button" class="btn btn-primary">Save changes</button>
+                       -->
+                       <a href="{{obj.confirm_payment}}" class="btn btn-sm btn-success">Confirm Payment</a>
                     </div>
                   </div>
                 </div>
@@ -90,6 +125,38 @@
             {%endfor%}
             </tbody>
           </table>
+
+
+          <nav aria-label="Page navigation example" class="mt-3">
+            {% if orders.has_other_pages %}
+              <ul class="pagination justify-content-center">
+                {% if orders.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ orders.previous_page_number }}">Previous</a>
+                  </li>
+                {% else %}
+                  <li class="disabled page-item">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                  </li>
+                {% endif %}
+                {% for i in orders.paginator.page_range %}
+                  {% if orders.number == i %}
+                    <li class="active page-item"><a class="page-link" href="#">{{ i }}</a></li>
+                  {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if orders.has_next %}
+                  <li class="page-item"><a class="page-link" href="?page={{ orders.next_page_number }}">Next</a></li>
+                {% else %}
+                  <li class="disabled page-item">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+                  </li>
+                {% endif %}
+              </ul>
+            {% endif %}
+      
+            </nav>
 
     </div>
 
