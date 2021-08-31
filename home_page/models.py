@@ -40,6 +40,7 @@ class Products(models.Model):
     description = models.TextField()
     image       = models.ImageField(upload_to='product/')
     slug        = models.SlugField(max_length=300,unique=True,null=True,blank=True)
+    past_price  = models.DecimalField(max_digits=5,decimal_places=2,null=True,blank=True)
     price       = models.DecimalField(max_digits=5,decimal_places=2)
     avialable   = models.BooleanField(default=True)
     shipping_day    = models.IntegerField()
@@ -48,6 +49,7 @@ class Products(models.Model):
     top_sell        = models.BooleanField(default=False)
     created_at      = models.DateTimeField(auto_now_add=True)
     updated_at      = models.DateTimeField(auto_now=True)
+    # stock           
 
     def get_absolute_url(self):
         return reverse("single-page", kwargs={"slug": self.slug})

@@ -1,34 +1,28 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{%block title %}| homepage{% endblock title%}
-
-
-{%block content%}
+{% extends 'base.html' %} {% load static %} {%block title %}| homepage{% endblock title%} {%block content%}
 <div class="container">
     <div class="row g-1">
         <div class="col-md-3">
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <span class="ps-2"><i class="uil uil-align-left-justify"></i> <b>ALL CATEGORY</b></span>
                     </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="category text-left">
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="category text-left">
 
-                        {% for cat in category %}
-                        <a href="{{cat.get_absolute_url}}" class="p-2 ps-4 d-block text-decoration-none">{{cat.name}} <span class="ms-auto"><i class="uil uil-arrow-right"></i></span></a>
-                        
-                        {% endfor%}
-                        
+                            {% for cat in category %}
+                            <a href="{{cat.get_absolute_url}}" class="p-2 ps-4 d-block text-decoration-none">{{cat.name}} <span class="ms-auto"><i class="uil uil-arrow-right"></i></span></a> {% endfor%}
+
+                        </div>
                     </div>
-                  </div>
                 </div>
-                <!----> 
-              </div><!--accordion-->
-        </div><!--col-3-->
+                <!---->
+            </div>
+            <!--accordion-->
+        </div>
+        <!--col-3-->
 
         <div class="col-md-9">
             <div class="row g-0">
@@ -38,72 +32,71 @@
                             <input name="isearch" type="text" class="form-control p-3" placeholder="what do you need?" aria-label="search">
                             <!-- <span class="input-group-text"><i class="uil uil-search"></i></span>
                              -->
-                            <button type="submit"  class="input-group-text"><i class="uil uil-search"></i></button>
+                            <button type="submit" class="input-group-text"><i class="uil uil-search"></i></button>
 
-                          </div>
+                        </div>
                     </form>
                 </div>
 
-              <div class="col-md-4">
-                <div class="d-flex justify-content-center">
-                    <a  href="tel:123-456-7890" class="mt-2 bg-secondary p-2 text-light" style="border-radius: 20%;"><i class="uil uil-phone-volume"></i></a>
-                    <div class="ps-3 text-center">
-                        <span class="fw-bold">01627566047</span> <br>
-                    <span>support 24/7 times</span>
+                <div class="col-md-4">
+                    <div class="d-flex justify-content-center">
+                        <a href="tel:123-456-7890" class="mt-2 bg-secondary p-2 text-light" style="border-radius: 20%;"><i class="uil uil-phone-volume"></i></a>
+                        <div class="ps-3 text-center">
+                            <span class="fw-bold">01627566047</span> <br>
+                            <span>support 24/7 times</span>
+                        </div>
                     </div>
                 </div>
-              </div>
-            </div><!--row-->
+            </div>
+            <!--row-->
 
             <div class="row mt-2">
                 <div class="col-12">
                     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
-                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
                         </div>
                         <div class="carousel-inner">
 
-                            {% for f in feature %}
-                                {%if forloop.counter < 4 %}
-                          <div class="carousel-item {%if forloop.counter == 1 %} active {%endif%}">
-                            <img src="{{f.image.url}}"
-                             class="d-block" style="width: 95%; height: 350px; object-fit: cover;" alt="...">
-                            <div class="carousel-caption  d-md-block bg-slider">
-                              <h4>{{f.title}}</h4>
-                              <h5>{{f.subtitle}}</h5>
-                              <p>{{f.slogan}}</p>
+                            {% for f in feature %} {%if forloop.counter < 4 %} 
+                            <div class="carousel-item {%if forloop.counter == 1 %} active {%endif%}">
+                                <img src="{{f.image.url}}" class="d-block" style="width: 95%; height: 350px; object-fit: cover;" alt="...">
+                                <div class="carousel-caption  d-md-block bg-slider">
+                                    <h4>{{f.title}}</h4>
+                                    <h5>{{f.subtitle}}</h5>
+                                    <p>{{f.slogan}}</p>
 
-                              <a href="{% url 'category' %}" class="btn btn-custom p-2" style="width: 30%;"><i class="uil uil-store-alt"></i> shop now</a>
-                            </div>
-                          </div>
-                          {% endif %}
-                          {% endfor %}
-
+                                    <a href="{% url 'category' %}" class="btn btn-custom p-2" style="width: 30%;"><i class="uil uil-store-alt"></i> shop now</a>
+                                </div>
                         </div>
-  
-                      </div>
+                        {% endif %} {% endfor %}
+
+                    </div>
+
                 </div>
             </div>
-        </div><!--col-9-->
+        </div>
     </div>
+    <!--col-9-->
+</div>
 
 
-    <!--========================SHOP NOW=========================-->
-    <div class="text-center base-font mt-4">
-        <h2>SHOP NOW</h2>
-        
-    </div>
+<!--========================SHOP NOW=========================-->
+<div class="text-center base-font mt-4">
+    <h2>SHOP NOW</h2>
 
-    <div class="splide homesplide">
-        <div class="splide__track">
-            <ul class="splide__list">
+</div>
 
-                {% for cat in category %}
-                <li class="splide__slide">
-                  <div class="card me-1">
-                      <div class="card-body">
+<div class="splide homesplide">
+    <div class="splide__track">
+        <ul class="splide__list">
+
+            {% for cat in category %}
+            <li class="splide__slide">
+                <div class="card me-1">
+                    <div class="card-body">
                         <a href="{{cat.get_absolute_url}}" class="text-decoration-none text-center">
                             {% if cat.image %}
                             <img src="{{cat.image.url}}" style="width: 100%; height: 150px; object-fit: cover;" alt="">
@@ -112,87 +105,102 @@
                             {% endif %}
                             <h5 class="mt-2">{{cat.name}}</h5>
                         </a>
-                      </div>
-                  </div>
-                </li>
-                {% endfor %}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
 
-            </ul>
-        </div>
+        </ul>
     </div>
+</div>
 
 
-    <!--========================= LATEST SELL+==========================-->
-    <div class="text-center base-font mt-4">
-        <h2>SUPER SELL TODAY</h2>
-        
-    </div>
+<!--========================= LATEST SELL+==========================-->
+<div class="text-center base-font mt-4">
+    <h2>SUPER SELL TODAY</h2>
 
-    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-        {% for cat in category %}
-            {% if cat.feature %}
-        <li class="nav-item" role="presentation">
-          <button class="nav-link {% if forloop.counter == 1 %} active {% endif%}" id="home-{{cat.id}}" data-bs-toggle="tab" data-bs-target="#cat-{{cat.id}}" type="button" role="tab" aria-controls="{{cat.slug}}" aria-selected="true">
+</div>
+
+<ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+    {% for cat in category %} {% if cat.feature %}
+    <li class="nav-item" role="presentation">
+        <button class="nav-link {% if forloop.counter == 1 %} active {% endif%}" id="home-{{cat.id}}" data-bs-toggle="tab" data-bs-target="#cat-{{cat.id}}" type="button" role="tab" aria-controls="{{cat.slug}}" aria-selected="true">
               {{cat.name}}
           </button>
-        </li>
-            {% endif %}
-        {% endfor %}
-        <!-- <li class="nav-item" role="presentation">
+    </li>
+    {% endif %} {% endfor %}
+    <!-- <li class="nav-item" role="presentation">
           <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
         </li> -->
-      </ul>
+</ul>
 
 
-      <div class="tab-content" id="myTabContent">
-          {% for cat in category %}
-            {% if cat.feature %}
-        <div class="tab-pane fade show {%if forloop.counter == 1 %} active {%endif%}" id="cat-{{cat.id}}" role="tabpanel" aria-labelledby="{{cat.slug}}-tab">
-            <div class="row">
-                {% for obj in  cat.product.all %}
-                    {%if obj.active and forloop.counter < 9 %}
-                <div class="col-md-3 mb-1">
-                    <div class="card border-0">
-                      
-                        <!-- <img src="{{obj.image.url}}" style="width: 100%; height: 200px; object-fit: cover;" alt=""> -->
-                        <div class="card-body text-center">
-                              <!--==========-->
-                        <div class="img-container">
-                            <img src="{{obj.image.url}}" alt="{{obj.name}}" style="width: 100%; height: 200px; object-fit: cover;" >
-                            <div class="overlay">
-                              <div>
-                                <a href="{{obj.add_to_cart}}" class="btn btn-sm fw-bold text-white mt-1"><i class="uil uil-shopping-cart-alt"></i> Add to cart</a>|
-                                <a href="{{obj.get_absolute_url}}" class="btn btn-sm fw-bold text-white mt-1"><i class="uil uil-angle-up"></i> Info</a>
+<div class="tab-content" id="myTabContent">
+    {% for cat in category %} {% if cat.feature %}
+    <div class="tab-pane fade show {%if forloop.counter == 1 %} active {%endif%}" id="cat-{{cat.id}}" role="tabpanel" aria-labelledby="{{cat.slug}}-tab">
+        <div class="row">
+            {% for obj in cat.product.all %} {%if obj.active and forloop.counter < 9 %} 
+            <div class="col-md-3 mb-1">
+                <div class="card border-0">
 
-                              </div>
-                            </div>
-                          </div>
+                    <!-- <img src="{{obj.image.url}}" style="width: 100%; height: 200px; object-fit: cover;" alt=""> -->
+                    <div class="card-body text-center">
                         <!--==========-->
-                            <p>{{obj.name}}</p>
-                            <h5>&#2547;{{obj.price}}</h5>
+                        <div class="img-container">
+                            <img src="{{obj.image.url}}" alt="{{obj.name}}" style="width: 100%; height: 200px; object-fit: cover;">
+                            <div class="overlay">
+                                <div>
+                                    <a href="{{obj.add_to_cart}}" class="btn btn-sm fw-bold text-white mt-1"><i class="uil uil-shopping-cart-alt"></i> Add to cart</a>|
+                                    <a href="{{obj.get_absolute_url}}" class="btn btn-sm fw-bold text-white mt-1"><i class="uil uil-angle-up"></i> Info</a>
+
+                                </div>
+                            </div>
                         </div>
+                        <!--==========-->
+                        {% if obj.past_price %}
+                            <span class="text-decoration-line-through text-muted">&#2547;{{obj.past_price}}</span>
+                            <br>
+                        {%endif%}
+                        <span> &#2547;{{obj.price}}</span>
+                        {%if obj.avialable %}
+                        <span class="badge bg-success">In stock </span>
+                        {% else %}
+
+                        <span class="badge bg-danger">stock out </span>
+
+                        {%endif%}
+                       
+                        <p>{{obj.name}} </p> 
                     </div>
                 </div>
-                    {% endif %}
-                {% endfor %}
-
-            </div>
         </div>
-        {% endif %}
+        {% endif %} 
         {% endfor %}
-        <!-- <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+
+    </div>
+</div>
+{% endif %} {% endfor %}
+<!-- <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div> -->
-      </div>
+</div>
 
 </div>
-{%endblock content%}
-
-
-{%block script%}
+{%endblock content%} {%block script%}
 <script>
+
+        var homeIcon = document.querySelector('.accordion-collapse');
+
+        
+        if (window.innerWidth <= 800) { 
+            homeIcon.classList.remove('show');
+        }
+        else{
+
+         homeIcon.classList.add('show');
+        }
     // let page = 4
     // // console.log(window.innerWidth)
     // let b = window.innerWidth
@@ -200,12 +208,12 @@
     // if (b < 600) {
     //     page = 1
     // }
-    new Splide( '.homesplide', {
-         type   : 'loop',
-         perPage: page,
-         focus  : 'center',
-         autoplay    : true,
-         pauseOnHover: true,
-     } ).mount();
- </script>
+    new Splide('.homesplide', {
+        type: 'loop',
+        perPage: page,
+        focus: 'center',
+        autoplay: true,
+        pauseOnHover: true,
+    }).mount();
+</script>
 {%endblock script%}

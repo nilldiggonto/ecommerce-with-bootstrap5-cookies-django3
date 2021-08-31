@@ -61,15 +61,15 @@ body{
     right: 0;
     height: 20%;
     width: 100%;
-    opacity: 0;
+    opacity: 1;
     transition: .5s ease;
     background-color: #a8bd0a;
   }
   
-  .img-container:hover .overlay {
+  /* .img-container:hover .overlay {
     opacity: 1;
   }
-  
+   */
 
   .page-item.active .page-link {
     z-index: 3;
