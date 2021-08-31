@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+
+{%block content%}
+
+{%include 'home/nav_partial.html' %}
+
+<div class="container border p-4 bg-three text-white mb-2" style=" border-radius:15px">
+
+    <div class="row g-3">
+        <div class="col-md-6 d-none d-md-block" style="margin-top:10% ;" >
+
+            <div class="text-center text-dark">
+                <h3></h3>
+                <h4>AsifECo</h4>
+                <p class="lead">Welcome</p>
+            </div>
+
+        </div>
+        <div class="col-md-6 align-middle border-start text-dark" >
+            <h3 class="text-center">AsifECo</h3>
+            <h4 class="text-center"><i class="uil uil-user-plus"></i> register</h4>
+            <!-- <hr> -->
+            <form method="POST" class="p-2 row g-3">
+                {%csrf_token%}
+                <div class=" col-md-6">
+                    <label for="fname" class="form-label"><i class="uil uil-edit-alt"></i> first name</label>
+                    <input type="text" class="form-control" id="fname" placeholder="First Name" name="fname" required>
+                    
+                  </div>
+
+                  <div class=" col-md-6">
+                    <label for="lname" class="form-label"><i class="uil uil-edit-alt"></i> last name</label>
+                    <input type="text" class="form-control" id="lname" placeholder="lname" name="lname" required>
+                  </div>
+
+                  <div class=" col-md-12">
+                    <label for="email" class="form-label"><i class="uil uil-envelope-shield"></i> email</label>
+                    <input type="email" class="form-control" id="remail" placeholder="you@mail.com" name="email" required>
+                    <div class="">
+                       {% if not valid %}
+                      <span class="badge rounded-pill bg-danger"> Email already exists. login please</span>
+                       {%endif%}
+                      </div>
+                  </div>
+
+                  <!-- <div class="col-md-12">
+                    <label for="username" class="form-label"><i class="uil uil-user"></i> username</label>
+                    <input type="text" class="form-control" id="username" placeholder="username" name="username">
+                  </div> -->
+    
+                  <div class="col-md-12">
+                    <label for="password" class="form-label"><i class="uil uil-key-skeleton-alt"></i> password</label>
+                    <input type="password" class="form-control" id="password" placeholder="password" name="password" required>
+                  </div>
+    
+                  <div class="text-end">
+                      <button style="width: 20%;" class="btn btn-dark btn-sm"><i class="uil uil-telegram-alt"></i> register</button>
+                  </div>
+            </form>
+
+            <div class="d-flex justify-content-between">
+                <!-- <span><i class="uil uil-exclamation-octagon"></i> forget password</span> -->
+                <span><i class="uil uil-exclamation-triangle"></i> already have and account?
+                    
+                    <a href="{% url 'auth-login' %}" class="text-success"><i class="uil uil-accessible-icon-alt"></i> login now</a>
+                </span>
+                <!-- <span><i class="uil uil-user-plus"></i> login now</span> -->
+            </div>
+              
+        </div>
+    </div>
+</div>
+
+
+{%endblock content%}

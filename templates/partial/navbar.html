@@ -14,6 +14,9 @@
                 <a class="nav-link" href="{% url 'category' %}"><i class="uil uil-shop"></i>Shop</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="{% url 'checkout-done-view' %}"><i class="uil uil-store"></i>Store</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="{% url 'checkout-done-view' %}"><i class="uil uil-shopping-bag"></i>Checkout</a>
               </li>
               <!-- <li class="nav-item dropdown">
@@ -42,7 +45,17 @@
                   </a></li>
                 <li class="nav-item"><a href="#" class="nav-link"><i class="uil uil-brightness-plus"></i> Total: <span class="text-dark">&#x9f3;{{cart_total.total__sum | floatformat:2 }}</span></a></li>
 
-                <li class="nav-item"><a href="" class="nav-link"><i class="uil uil-user"></i>Login</a></li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item"><a href="#" class="nav-link"><i class="uil uil-user-circle"></i> Profile</a></li>
+
+                {% else %}
+
+                
+                <li class="nav-item"><a href="{% url 'auth-login' %}" class="nav-link"><i class="uil uil-user"></i>Login</a></li>
+                <li class="nav-item"><a href="{% url 'auth-register' %}" class="nav-link"><i class="uil uil-user-plus"></i></i>Register</a></li>
+
+                {%endif%}
+
             </ul>
 
          

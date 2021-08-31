@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+
+{%block content%}
+{%include 'home/nav_partial.html' %}
+
+
+<div class="container border p-4 bg-three text-white" style=" border-radius:15px">
+
+    <div class="row g-3">
+        <div class="col-md-6 d-none d-md-block" style="margin-top:10% ;" >
+
+            <div class="text-center text-dark">
+                <h3></h3>
+                <h4>EcoAsif</h4>
+                <p class="lead">Welcome</p>
+            </div>
+
+        </div>
+        <div class="col-md-6 align-middle border-start text-dark" >
+            <h3 class="text-center">NO club</h3>
+            <h4 class="text-center">Login</h4>
+
+         {% if request.session.vmsg  %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Verify!</strong> Check your mail to verify.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+        {% endif %}
+            <form method="POST" class="p-2">
+                {%csrf_token%}
+                <h4>{{a}}</h4>
+                <div class="mb-3">
+                    <label for="username" class="form-label"><i class="uil uil-user"></i> Email</label>
+                    <input type="email" class="form-control" id="username" placeholder="emial@xyz.com" name="username">
+                  </div>
+    
+                  <div class="mb-3">
+                    <label for="password" class="form-label"><i class="uil uil-key-skeleton-alt"></i> password</label>
+                    <input type="password" class="form-control" id="password" placeholder="password" name="password">
+                  </div>
+    
+                  <div class="text-end">
+                      <button style="width: 20%;" class="btn btn-dark btn-sm"><i class="uil uil-telegram-alt"></i> login</button>
+                  </div>
+            </form>
+
+            <div class="d-flex justify-content-between">
+                <span><i class="uil uil-exclamation-octagon"></i> forget password</span>
+                <span><i class="uil uil-user-plus"></i> 
+                    <a href="{%url 'auth-register' %}">create new account</a>
+                </span>
+            </div>
+              
+        </div>
+    </div>
+</div>
+
+
+
+{%endblock content%}
