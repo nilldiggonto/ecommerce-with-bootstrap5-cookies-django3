@@ -25,3 +25,15 @@ def createShoView(request):
 
 
     return render(request,template_name)
+
+@login_required(login_url='/auth/login/')
+def myShopView(request):
+    user = User.objects.get(username=request.user.username)
+    template_name = 'dashboard/my_shop.html'
+
+    context = {
+        'user':user,
+    }
+
+    return render(request,template_name,context)
+
