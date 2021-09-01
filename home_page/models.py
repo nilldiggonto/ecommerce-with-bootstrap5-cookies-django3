@@ -1,6 +1,7 @@
 from django.db import models
 from .utils import unique_slugify
 from django.urls import reverse
+from accounts.models import ProfileUser
 # Create your models here.
 class Category(models.Model):
     name        = models.CharField(max_length=120,unique=True)
@@ -69,6 +70,7 @@ class Products(models.Model):
 
 class Order(models.Model):
     device_name = models.CharField(max_length=120,null=True,blank=True)
+    order_user  = models.ForeignKey(ProfileUser,related_name='order',on_delete=models.CASCADE,null=True,blank=True)
     first_name  = models.CharField(max_length=120)
     last_name   = models.CharField(max_length=120)
     phone_no    = models.CharField(max_length=120)

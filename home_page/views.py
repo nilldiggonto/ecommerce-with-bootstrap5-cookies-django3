@@ -3,6 +3,10 @@ from django.shortcuts import render,get_object_or_404,redirect
 from .models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Sum
+from django.contrib.auth.models import User
+from accounts.models import ProfileUser
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 def homeView(request):
     template_name = 'home/home.html'
@@ -141,7 +145,7 @@ def deleteCart(request,id=None):
     
     return redirect('cart-page')
 
-
+@login_required
 def checkoutDoneView(request):
     all_category =Category.objects.filter(active=True)
 
@@ -150,11 +154,14 @@ def checkoutDoneView(request):
         device = request.COOKIES['device']
     except:
         return redirect('home-page')
-    orders = Order.objects.filter(device_name=device).order_by('-id')
+    user = User.objects.get(username=request.user.username)
+    print(user.username)
+    puser= ProfileUser.objects.get(profile=user)
+    orders = Order.objects.filter(order_user=puser).order_by('-id')
     cart = Cart.objects.filter(device=device)
-    if request.user.is_authenticated:
-        orders = Order.objects.all().order_by('-id')
-        cart = Cart.objects.all()
+    # if request.user.is_authenticated:
+    #     orders = Order.objects.all().order_by('-id')
+    #     cart = Cart.objects.all()
 
     page = request.GET.get('page', 1)
 
@@ -189,6 +196,10 @@ def checkoutView(request):
         device = request.COOKIES['device']
     except:
         return redirect('home-page')
+    if not request.user.is_authenticated:
+        return redirect('auth-login')
+
+    user = User.objects.get(username=request.user.username)
     cart = Cart.objects.filter(device=device,consume=False)
 
     if request.method == 'POST':
@@ -202,12 +213,26 @@ def checkoutView(request):
         cash = request.POST.get('cash','not')
         bkash_no = request.POST.get('bkash_no','')
         bkash_trans = request.POST.get('bkash_trans','')
+        saveInfo = request.POST.get('saveInfo')
 
         print(bkash_no)
         payment = 'BKASH'
         if bkash_no == '':
             payment = 'CASH'
 
+        # if user.profile.exists():
+        # print(user.profile)
+        if saveInfo:
+            if ProfileUser.objects.filter(profile=user).exists():
+                
+                user.profile.phone = phone
+                user.profile.address = address
+                user.profile.address_tow = address_two
+            else:
+                ProfileUser.objects.create(profile=user,phone=phone,address=address,address_two=address_two)
+                
+
+        profileuser = ProfileUser.objects.get(profile=request.user)
         
         cart = Cart.objects.filter(device=device,consume=False)
         total = cart.aggregate(Sum('total'))
@@ -222,6 +247,7 @@ def checkoutView(request):
                                         payment=payment,
                                         bkash_no = bkash_no,
                                         bkash_trans = bkash_trans,
+                                        order_user = profileuser,
                                         device_name= device,total=total['total__sum'])
         cart.update(order=order,consume=True)
         return redirect('checkout-done-view')
@@ -229,7 +255,8 @@ def checkoutView(request):
 
     context = {
         'cart':cart,
-        'all_category':all_category
+        'all_category':all_category,
+        'user':user
     }
 
 
