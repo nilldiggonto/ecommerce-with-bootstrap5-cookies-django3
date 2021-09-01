@@ -145,9 +145,11 @@ def deleteCart(request,id=None):
     
     return redirect('cart-page')
 
-@login_required
+# @login_required
 def checkoutDoneView(request):
     all_category =Category.objects.filter(active=True)
+    if not request.user.is_authenticated:
+        return redirect('auth-login')
 
     template_name = 'home/checkout_done.html'
     try:
@@ -155,7 +157,7 @@ def checkoutDoneView(request):
     except:
         return redirect('home-page')
     user = User.objects.get(username=request.user.username)
-    print(user.username)
+    # print(user.username)
     puser= ProfileUser.objects.get(profile=user)
     orders = Order.objects.filter(order_user=puser).order_by('-id')
     cart = Cart.objects.filter(device=device)

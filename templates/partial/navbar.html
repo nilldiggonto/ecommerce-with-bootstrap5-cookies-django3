@@ -16,9 +16,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'checkout-done-view' %}"><i class="uil uil-store"></i>Store</a>
               </li>
+              {% if request.user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'checkout-done-view' %}"><i class="uil uil-shopping-bag"></i>Checkout</a>
+                <a class="nav-link" href="{% url 'checkout-done-view' %}"><i class="uil uil-shopping-bag"></i>History</a>
               </li>
+              {% endif%}
               <!-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Dropdown
@@ -46,7 +48,7 @@
                 <li class="nav-item"><a href="#" class="nav-link"><i class="uil uil-brightness-plus"></i> Total: <span class="text-dark">&#x9f3;{{cart_total.total__sum | floatformat:2 }}</span></a></li>
 
                 {% if request.user.is_authenticated %}
-                <li class="nav-item"><a href="#" class="nav-link"><i class="uil uil-user-circle"></i> Profile</a></li>
+                <li class="nav-item"><a href="{% url 'dashboard-home' %}" class="nav-link"><i class="uil uil-user-circle"></i> Profile</a></li>
 
                 {% else %}
 
