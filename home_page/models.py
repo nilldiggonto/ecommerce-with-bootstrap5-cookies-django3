@@ -2,6 +2,8 @@ from django.db import models
 from .utils import unique_slugify
 from django.urls import reverse
 from accounts.models import ProfileUser
+from django.contrib.auth.models import User
+
 # Create your models here.
 class Category(models.Model):
     name        = models.CharField(max_length=120,unique=True)
@@ -36,6 +38,7 @@ class FeaturedSlide(models.Model):
         return self.title
 
 class Products(models.Model):
+    added_by    = models.ForeignKey(User,related_name='user_product',on_delete=models.CASCADE,null=True,blank=True)
     category    = models.ForeignKey(Category,related_name='product',on_delete=models.CASCADE)
     name        = models.CharField(max_length=50)
     description = models.TextField()
@@ -50,6 +53,7 @@ class Products(models.Model):
     top_sell        = models.BooleanField(default=False)
     created_at      = models.DateTimeField(auto_now_add=True)
     updated_at      = models.DateTimeField(auto_now=True)
+    shop_owner      = models.BooleanField(default=False)
     # stock           
 
     def get_absolute_url(self):

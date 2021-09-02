@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from home_page.models import *
 # Create your views here.
 @login_required(login_url='/auth/login/')
 def dashboardView(request):
@@ -36,4 +37,11 @@ def myShopView(request):
     }
 
     return render(request,template_name,context)
+
+
+@login_required(login_url='/auth/login/')
+def addProductView(request):
+    user = User.objects.get(username=request.user.username)
+    template_name = 'dashboard/add_product.html'
+    return render(request,template_name)
 
