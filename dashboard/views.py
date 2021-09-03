@@ -43,5 +43,11 @@ def myShopView(request):
 def addProductView(request):
     user = User.objects.get(username=request.user.username)
     template_name = 'dashboard/add_product.html'
-    return render(request,template_name)
+
+    category = Category.objects.filter(active=True)
+
+    context ={
+        'category':category,
+    }
+    return render(request,template_name,context)
 

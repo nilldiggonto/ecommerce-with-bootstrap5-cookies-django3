@@ -14,30 +14,77 @@
        <div class="card-body">
         <form class="row g-1 mt-2" enctype="multipart/form-data" method="POST">
             {%csrf_token%}
-            <div class="col-md-12">
-              <label for="inputEmail4" class="form-label">Shop Name</label>
-              <input type="text" class="form-control" id="shopName" name="shopname" placeholder="give your shop name" required>
+            <div class="col-md-6">
+              <label for="inputEmail4" class="form-label">Select a category</label>
+              <select id="inputCategory" class="form-select" name="category" required>
+                {%for cat in category%}
+                <option>{{cat.name}}</option>
+                {%endfor%}
+              
+              </select>
+              <!-- <input type="text" class="form-control" id="categoryName" name="category" placeholder="give your shop name" required> -->
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Product Name</label>
+                <input type="text" class="form-control" id="productName" name="pname" placeholder="Item name" required>
             </div>
 
             <div class="col-md-12">
-                <label for="inputEmail4" class="form-label">Shop Type</label>
-                <input type="text" class="form-control" id="shopType" name="shoptype" placeholder="your shop type" required>
-            </div>
-
-            <div class="col-md-12">
-                <label for="inputEmail4" class="form-label">Shop Address</label>
-                <input type="text" class="form-control" id="shopAddress" name="shopaddress" placeholder="give your location" required>
+                <label for="inputEmail4" class="form-label">Description</label>
+                <textarea type="text" class="form-control"
+                 id="descriptionID" name="description" placeholder="Product Description" required>
+                </textarea>
               </div>
 
               
               <div class="mb-3">
-                <label for="formFile" class="form-label">Give a shop cover photo</label>
+                <label for="formFile" class="form-label">Product photo </label>
                
                 <input class="form-control" type="file" name="pic" id="shopFile">
               </div>
     
+              <div class="mb-3 col-md-6">
+                <label for="formFile" class="form-label">Product Current Price </label>
+               
+                <input class="form-control" type="number" min="1" name="currentprice" id="currentPrice" required>
+              </div>
+
+              <div class="mb-3 col-md-6">
+                <label for="formFile" class="form-label">Product past Price </label>
+               
+                <input class="form-control" type="number" min="1" name="pastprice" id="pastPrice">
+              </div>
+
+              <div class="mb-3 col-md-6">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" name="available" type="checkbox" id="flexSwitchCheckDefault">
+                  <label class="form-check-label" for="flexSwitchCheckDefault">Available</label>
+                </div>
+              </div>
+
+              <div class="mb-3 col-md-6 ">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" name="top" type="checkbox" id="flexSwitchCheckDefaulttop">
+                  <label class="form-check-label" for="topsell">Top Sell</label>
+                </div>
+              </div>
+
+              <div class="mb-3 col-md-6">
+                <label for="formFile" class="form-label">Shipping Day </label>
+               
+                <input class="form-control" type="number" min="1" name="shipday" id="shipDay">
+              </div>
+
+              <div class="mb-3 col-md-6">
+                <label for="formFile" class="form-label">Weight </label>
+               
+                <input class="form-control" type="number" min="1" name="weight" id="weightDay">
+              </div>
+
+
             <div class="col-12">
-                <button type="submit" class="btn btn-primary">Create shop</button>
+                <button type="submit" class="btn btn-primary">Add Product</button>
               </div>
         </form>
        </div>
