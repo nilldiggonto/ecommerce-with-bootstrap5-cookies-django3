@@ -3,6 +3,8 @@ from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from home_page.models import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # Create your views here.
 @login_required(login_url='/auth/login/')
 def dashboardView(request):
@@ -162,4 +164,30 @@ def edit_product(request,id):
 
     }
     return render(request,template_name,context)
+
+
+@login_required(login_url='/auth/login/')
+def order_request_view(request):
+    template_name = 'dashboard/order_request.html'
+    user = User.objects.get(username=request.user.username)
+    # print(user.username)
+    orders = Order.objects.filter(shop_owner=user).order_by('-id')
+    # print(orders)
+    cart = Cart.objects.filter(cart_owner=user)
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(orders, 15)
+    try:
+        orders = paginator.page(page)
+    except PageNotAnInteger:
+        orders = paginator.page(1)
+    except EmptyPage:
+        orders = paginator.page(paginator.num_pages)
+    context = {
+        # 'all_category':all_category,
+        'orders':orders,
+        'cart':cart
+    }
+    return render(request,template_name,context)
+
 

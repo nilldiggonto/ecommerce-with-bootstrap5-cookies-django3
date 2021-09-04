@@ -128,13 +128,24 @@ def addCart(request,slug=None):
         item = request.POST.get('cart')
     if slug:
         product = get_object_or_404(Products,slug=slug)
-        if Cart.objects.filter(device=device,product=product,consume=False).exists():
-            cart = Cart.objects.get(product=product,device=device,consume=False)
+        product_owner = product.added_by or None
+        if Cart.objects.filter(device=device,product=product,consume=False,cart_owner=product_owner).exists():
+            print('same product')
+            cart = Cart.objects.get(product=product,device=device,consume=False,cart_owner=product_owner)
             cart.quantity = cart.quantity + int(item)
             cart.total = cart.total + product.price
             cart.save()
+        
+        elif Cart.objects.filter(device=device,consume=False,cart_owner=product_owner).exists():
+            print('second')
+            Cart.objects.create(cart_owner=product_owner,device=device,product=product,quantity=int(item),total=product.price * int(item))
         else:
-            Cart.objects.create(device=device,product=product,quantity=int(item),total=product.price * int(item))
+            try:
+                print('try')
+                Cart.objects.filter(device=device,consume=False).delete()
+            except:
+                pass
+            Cart.objects.create(cart_owner=product_owner,device=device,product=product,quantity=int(item),total=product.price * int(item))
         return redirect('cart-page')
     # print(device)
     template_name = 'home/cart.html'
@@ -218,7 +229,7 @@ def checkoutView(request):
         bkash_trans = request.POST.get('bkash_trans','')
         saveInfo = request.POST.get('saveInfo')
 
-        print(bkash_no)
+        # print(bkash_no)
         payment = 'BKASH'
         if bkash_no == '':
             payment = 'CASH'
@@ -231,6 +242,7 @@ def checkoutView(request):
                 user.profile.phone = phone
                 user.profile.address = address
                 user.profile.address_tow = address_two
+                user.profile.save()
             else:
                 ProfileUser.objects.create(profile=user,phone=phone,address=address,address_two=address_two)
                 
@@ -239,6 +251,7 @@ def checkoutView(request):
         
         cart = Cart.objects.filter(device=device,consume=False)
         total = cart.aggregate(Sum('total'))
+        cart_owner =Cart.objects.filter(device=device,consume=False).last()
         # print(total)
 
         order = Order.objects.create(first_name=fname,
@@ -251,7 +264,8 @@ def checkoutView(request):
                                         bkash_no = bkash_no,
                                         bkash_trans = bkash_trans,
                                         order_user = profileuser,
-                                        device_name= device,total=total['total__sum'])
+                                        device_name= device,total=total['total__sum'],
+                                        shop_owner =cart_owner.cart_owner)
         cart.update(order=order,consume=True)
         return redirect('checkout-done-view')
         # cart.save()
@@ -282,7 +296,7 @@ def owner_shop_item_list(request,id):
     template_name = 'home/owner_product_list.html'
     all_category =Category.objects.filter(active=True)
     user = User.objects.get(pk=id)
-    
+
     # product = Products.objects.filter(added)
 
 
