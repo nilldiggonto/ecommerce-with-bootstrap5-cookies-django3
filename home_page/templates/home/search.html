@@ -39,7 +39,7 @@
 
                 <div class="card-body text-center">
                     <div class="img-container">
-                        <img src="{{obj.image.url}}" alt="{{obj.name}}" style="width: 100%; height: 200px; object-fit: cover;" >
+                        <img src="{% if obj.image %} {{obj.image.url}} {%else%} {% static 'img/noimg.png' %} {%endif %}" alt="{{obj.name}}" style="width: 100%; height: 200px; object-fit: cover;" >
                         <div class="overlay">
                           <div>
                               <a href="{{obj.add_to_cart}}" class="btn btn-sm fw-bold text-white mt-1"><i class="uil uil-shopping-cart-alt"></i> Add to cart</a>

@@ -23,7 +23,7 @@
                         <span class="border p-2">{{shop.shop_category}}</span>
                         <p class="mt-2">{{shop.location}}</p>
 
-                        <a href="{% url 'category' %}" class="btn btn-custom p-2" style="width: 30%;"><i class="uil uil-store-alt"></i> shop now</a>
+                        <a href="{% url 'owner-product-list' id=shop.owner.id %}" class="btn btn-custom p-2" style="width: 30%;"><i class="uil uil-store-alt"></i> shop now</a>
                     </div>
                 </div>
             </div>

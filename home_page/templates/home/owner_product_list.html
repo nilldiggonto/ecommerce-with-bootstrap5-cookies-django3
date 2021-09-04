@@ -1,37 +1,36 @@
 {% extends 'base.html' %}
 {% load static %}
-{%block title %}Category{%endblock title%}
 
 {%block content%}
 
 {% include 'home/nav_partial.html' %}
 
+
+<!-- {{user}} -->
 <div class="mt-2">
-    <div class="p-4  bg-category" style="background-image:url('{% static 'img/items.jpg' %}');">
+    <div class="p-4  bg-category" style="background-image:url('{{user.shop_owner.image.url}}');">
         <div class="p-4 text-white bg-slider text-center base-font">
-            <h4>{{headline}}</h4>
-            <nav aria-label="breadcrumb" class="d-flex justify-content-center">
-                <ol class="breadcrumb text-center ">
-                  <li class="breadcrumb-item"><a href="{% url 'home-page' %}" class="text-light">Home</a></li>
-                  <li class="breadcrumb-item " aria-current="page">Shop</li>
-                </ol>
-              </nav>
+            <h4>{{user.shop_owner.shop_name}}</h4>
+          
             </div>
         
     </div>
 </div>
 
 
-<div class="container">
-    <div class="mt-4">
-        <h3 class="base-font">Top Sale</h3>
-    </div>
 
+
+    <div class="container mt-2 mb-2">
+        <div class="mt-4">
+            <h3 class="base-font">Top Sale</h3>
+        </div>
+
+        
     <div class="splide catsplide">
         <div class="splide__track">
             <ul class="splide__list">
 
-                {% for obj in hotproduct %}
+                {% for obj in user.user_product.all %}
                     {%if obj.top_sell %}
                 <li class="splide__slide">
                     <div class="card me-2">
@@ -54,14 +53,11 @@
                     </div>
                 </li>
                 {%endif%}
-                {%endfor%}
-        
-              
-   
-        
+                {%endfor%}     
             </ul>
         </div>
     </div>
+    <!---->
 
 
     <div class="mt-4">
@@ -70,13 +66,13 @@
 
     <div class="row g-1">
 
-        {% for obj in product %}
+        {% for obj in user.user_product.all %}
         <div class="col-md-3 mb-1">
             <div class="card">
 
                 <div class="card-body text-center">
                     <div class="img-container">
-                        <img src="{{obj.image.url}}" alt="{{obj.name}}" style="width: 100%; height: 200px; object-fit: cover;" >
+                        <img src="{% if obj.image %} {{obj.image.url}} {%else%} {% static 'img/noimg.png' %} {%endif %}" alt="{{obj.name}}" style="width: 100%; height: 200px; object-fit: cover;" >
                         <div class="overlay">
                           <div>
                               <a href="{{obj.add_to_cart}}" class="btn btn-sm fw-bold text-white mt-1"><i class="uil uil-shopping-cart-alt"></i> Add to cart</a>
@@ -97,41 +93,9 @@
     
 
     </div><!--row-->
-    <nav aria-label="Page navigation example" class="mt-3">
-      {% if product.has_other_pages %}
-        <ul class="pagination justify-content-center">
-          {% if product.has_previous %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ product.previous_page_number }}">Previous</a>
-            </li>
-          {% else %}
-            <li class="disabled page-item">
-              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-          {% endif %}
-          {% for i in product.paginator.page_range %}
-            {% if product.number == i %}
-              <li class="active page-item"><a class="page-link" href="#">{{ i }}</a></li>
-            {% else %}
-              <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-            {% endif %}
-          {% endfor %}
-          {% if product.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{ product.next_page_number }}">Next</a></li>
-          {% else %}
-            <li class="disabled page-item">
-              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
-            </li>
-          {% endif %}
-        </ul>
-      {% endif %}
+   
 
-      </nav>
-
-</div>
-
-
-{%endblock content%}
+{%endblock%}
 
 
 

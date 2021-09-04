@@ -76,12 +76,13 @@ class Products(models.Model):
 class Order(models.Model):
     device_name = models.CharField(max_length=120,null=True,blank=True)
     order_user  = models.ForeignKey(ProfileUser,related_name='order',on_delete=models.CASCADE,null=True,blank=True)
+    shop_owner  = models.ForeignKey(User,related_name='order_owner',on_delete=models.CASCADE,null=True,blank=True)
     first_name  = models.CharField(max_length=120)
     last_name   = models.CharField(max_length=120)
     phone_no    = models.CharField(max_length=120)
     email       = models.EmailField(max_length=120)
     address     = models.TextField()
-    address_two = models.TextField()
+    address_two = models.TextField(null=True,blank=True)
     payment     = models.CharField(max_length=120)
     bkash_no    = models.CharField(max_length=120,null=True,blank=True)
     bkash_trans = models.CharField(max_length=120,null=True,blank=True)
@@ -99,6 +100,8 @@ class Order(models.Model):
 
 class Cart(models.Model):
     product = models.ForeignKey(Products,on_delete=models.CASCADE,related_name='cart')
+    cart_owner  = models.ForeignKey(User,related_name='cart_owner',on_delete=models.CASCADE,null=True,blank=True)
+
     order   = models.ForeignKey(Order,related_name='order',on_delete=models.CASCADE,null=True,blank=True)
     device  = models.CharField(max_length=300)
     quantity = models.IntegerField()

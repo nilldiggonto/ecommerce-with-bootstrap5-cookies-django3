@@ -15,7 +15,8 @@ urlpatterns = [
     path('item/<str:slug>/',singleView,name='single-page'),
     path('add/cart/<str:slug>/',addCart,name='add-cart-page'),
     path('cart/delete/<int:id>/',deleteCart,name='cart-delete'),
-    path('confirm/payment/<int:id>/',confirmPaymentView,name='confirm-payment')
+    path('confirm/payment/<int:id>/',confirmPaymentView,name='confirm-payment'),
+    path('shop/products/<int:id>/',owner_shop_item_list,name='owner-product-list'),
 
 
 ]

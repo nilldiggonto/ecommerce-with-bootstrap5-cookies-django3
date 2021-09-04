@@ -277,3 +277,17 @@ def owner_shop(request):
     }
 
     return render(request,template_name,context)
+
+def owner_shop_item_list(request,id):
+    template_name = 'home/owner_product_list.html'
+    all_category =Category.objects.filter(active=True)
+    user = User.objects.get(pk=id)
+    
+    # product = Products.objects.filter(added)
+
+
+    context = {
+        'all_category':all_category,
+        'user':user
+    }
+    return render(request,template_name,context)
