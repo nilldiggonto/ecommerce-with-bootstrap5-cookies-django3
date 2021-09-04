@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="p-3 text-center bg-dark text-light">
-        <h4>Add Products</h4>
+        <h4>{{title}}</h4>
     </div>
  <div class="row g-1 mt-2">
      <div class="col-md-8">
@@ -15,7 +15,7 @@
         <form class="row g-1 mt-2" enctype="multipart/form-data" method="POST">
             {%csrf_token%}
             <div class="col-md-6">
-              <label for="inputEmail4" class="form-label">Select a category</label>
+              <label for="inputEmail4" class="form-label"><i class="uil uil-list-ol-alt"></i> বিভাগ নির্বাচন করুন</label>
               <select id="inputCategory" class="form-select" name="category" required>
                 {%for cat in category%}
                 <option>{{cat.name}}</option>
@@ -26,65 +26,67 @@
             </div>
 
             <div class="col-md-6">
-                <label for="inputEmail4" class="form-label">Product Name</label>
-                <input type="text" class="form-control" id="productName" name="pname" placeholder="Item name" required>
+                <label for="inputEmail4" class="form-label"><i class="uil uil-pen"></i> পণ্যের নাম</label>
+                <input value="{{product.name}}" type="text" class="form-control" id="productName" name="pname" placeholder="Item name" required>
             </div>
 
             <div class="col-md-12">
-                <label for="inputEmail4" class="form-label">Description</label>
-                <textarea type="text" class="form-control"
+                <label for="inputEmail4" class="form-label"><i class="uil uil-edit-alt"></i> পণ্যের বর্ণনা</label>
+                <textarea type="text" class="form-control" 
                  id="descriptionID" name="description" placeholder="Product Description" required>
+                 {{product.description}}
                 </textarea>
+                <!-- {{product.description}} -->
               </div>
 
               
               <div class="mb-3">
-                <label for="formFile" class="form-label">Product photo </label>
+                <label for="formFile" class="form-label"><i class="uil uil-image-plus"></i> পণ্যের ছবি</label>
                
-                <input class="form-control" type="file" name="pic" id="shopFile">
+                <input class="form-control" type="file" name="pic" id="shopFile" >
               </div>
-    
+              <!-- {{product.image.url}} -->
               <div class="mb-3 col-md-6">
-                <label for="formFile" class="form-label">Product Current Price </label>
+                <label for="formFile" class="form-label"><i class="uil uil-pricetag-alt"></i> পণ্যের বর্তমান মূল্য </label>
                
-                <input class="form-control" type="number" min="1" name="currentprice" id="currentPrice" required>
+                <input value="{{product.price}}" class="form-control" type="number" min="1" name="currentprice" id="currentPrice" required>
               </div>
 
               <div class="mb-3 col-md-6">
-                <label for="formFile" class="form-label">Product past Price </label>
+                <label for="formFile" class="form-label"><i class="uil uil-pricetag-alt"></i> পণ্যের অতীত মূল্য</label>
                
-                <input class="form-control" type="number" min="1" name="pastprice" id="pastPrice">
+                <input value="{{product.past_price}}" class="form-control" type="number" min="1" name="pastprice" id="pastPrice">
               </div>
 
               <div class="mb-3 col-md-6">
                 <div class="form-check form-switch">
                   <input class="form-check-input" name="available" type="checkbox" id="flexSwitchCheckDefault">
-                  <label class="form-check-label" for="flexSwitchCheckDefault">Available</label>
+                  <label class="form-check-label" for="flexSwitchCheckDefault">মজুদ</label>
                 </div>
               </div>
 
               <div class="mb-3 col-md-6 ">
                 <div class="form-check form-switch">
                   <input class="form-check-input" name="top" type="checkbox" id="flexSwitchCheckDefaulttop">
-                  <label class="form-check-label" for="topsell">Top Sell</label>
+                  <label class="form-check-label" for="topsell">শীর্ষ বিক্রয়</label>
                 </div>
               </div>
 
               <div class="mb-3 col-md-6">
-                <label for="formFile" class="form-label">Shipping Day </label>
+                <label for="formFile" class="form-label">শিপিং দিন </label>
                
-                <input class="form-control" type="number" min="1" name="shipday" id="shipDay">
+                <input value="{{product.shipping_day}}" class="form-control" type="number" min="1" name="shipday" id="shipDay" required>
               </div>
 
               <div class="mb-3 col-md-6">
-                <label for="formFile" class="form-label">Weight </label>
+                <label for="formFile" class="form-label">পণ্যের ওজন </label>
                
-                <input class="form-control" type="number" min="1" name="weight" id="weightDay">
+                <input value="{{product.weight}}" class="form-control" type="number" min="1" name="weight" step="0.01" id="weightDay">
               </div>
 
 
             <div class="col-12">
-                <button type="submit" class="btn btn-primary">Add Product</button>
+                <button type="submit" class="btn btn-primary"><i class="uil uil-plus"></i> পণ্য যোগ করুন</button>
               </div>
         </form>
        </div>
@@ -94,7 +96,7 @@
 <div class="col-md-4">
     <div class="card">
         <div class="card-body">
-            <img src="#" id="blah" alt="" class="img-fluid">
+            <img src="{{product.image.url}}" id="blah" alt="" class="img-fluid">
         </div>
     </div>
 

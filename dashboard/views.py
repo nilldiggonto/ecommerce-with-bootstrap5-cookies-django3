@@ -43,11 +43,123 @@ def myShopView(request):
 def addProductView(request):
     user = User.objects.get(username=request.user.username)
     template_name = 'dashboard/add_product.html'
+    shop_owner = True
+    if user.is_superuser :
+        shop_owner = False
 
     category = Category.objects.filter(active=True)
 
+    if request.method == 'POST':
+        category = request.POST.get('category')
+        product_name = request.POST.get('pname')
+        description = request.POST.get('description')
+        
+        image = request.FILES['pic'] or None
+        
+        current_price = request.POST.get('currentprice')
+        past_price = request.POST.get('pastprice') or None
+        avialable= request.POST.get('available')
+        top = request.POST.get('top')
+        shipday = request.POST.get('shipday')
+        weight = request.POST.get('weight') or None
+        cat = Category.objects.get(name=category)
+        if avialable == 'on':
+            avialable = True
+        else:
+            avialable = False
+
+        if top == 'on':
+            top = True
+        else:
+            top = False
+
+        
+        # print(cat)
+        print(avialable)
+
+        Products.objects.create(added_by=user,
+                                category =cat,
+                                name= product_name,
+                                description= description,
+                                price =current_price,
+                                past_price=past_price,
+                                image =image,
+                                avialable=avialable,
+                                shipping_day = shipday,
+                                weight=weight,
+                                top_sell = top,shop_owner=shop_owner)
+        return redirect('dashboard-product-list')
+
+
     context ={
         'category':category,
+        'title':'পণ্য যোগ করুন'
+    }
+    return render(request,template_name,context)
+
+@login_required(login_url='/auth/login/')
+def product_list(request):
+    template_name = 'dashboard/your_product.html'
+    user = request.user
+    return render(request,template_name,{'user':user})
+
+@login_required(login_url='/auth/login/')
+def edit_product(request,id):
+    template_name = 'dashboard/add_product.html'
+    user = request.user
+    product = Products.objects.get(pk=id)
+    shop_owner = True
+    if user.is_superuser :
+        shop_owner = False
+    category = Category.objects.filter(active=True)
+
+    if request.method == 'POST':
+        category = request.POST.get('category')
+        product_name = request.POST.get('pname')
+        description = request.POST.get('description')
+        try:
+            image = request.FILES['pic']
+        except:
+            image = None
+        current_price = request.POST.get('currentprice')
+        past_price = request.POST.get('pastprice')
+        avialable= request.POST.get('available')
+        top = request.POST.get('top')
+        shipday = request.POST.get('shipday')
+        weight = request.POST.get('weight')
+        cat = Category.objects.get(name=category)
+        if avialable == 'on':
+            avialable = True
+        else:
+            avialable = False
+
+        if top == 'on':
+            top = True
+        else:
+            top = False
+
+        
+        # print(cat)
+        # print(avialable)
+        product.category = cat
+        product.name = product_name
+        product.description = description
+        product.price = current_price
+        product.past_price =past_price
+        if image:
+            product.image = image
+        product.avialable =avialable
+        product.shipping_day = shipday
+        product.weight = weight
+        product.top_sell = top
+        product.save()
+        return redirect('dashboard-product-list')
+    context = {
+        'user':user,
+        'product':product,
+        'category':category,
+        'title':'পণ্য সম্পাদনা করুন'
+
     }
     return render(request,template_name,context)
 

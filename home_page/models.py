@@ -42,19 +42,20 @@ class Products(models.Model):
     category    = models.ForeignKey(Category,related_name='product',on_delete=models.CASCADE)
     name        = models.CharField(max_length=50)
     description = models.TextField()
-    image       = models.ImageField(upload_to='product/')
+    image       = models.ImageField(upload_to='product/',null=True,blank=True)
     slug        = models.SlugField(max_length=300,unique=True,null=True,blank=True)
     past_price  = models.DecimalField(max_digits=5,decimal_places=2,null=True,blank=True)
     price       = models.DecimalField(max_digits=5,decimal_places=2)
     avialable   = models.BooleanField(default=True)
     shipping_day    = models.IntegerField()
-    weight          = models.DecimalField(max_digits=5,decimal_places=2)
+    weight          = models.DecimalField(max_digits=5,decimal_places=2,null=True,blank=True)
     active          = models.BooleanField(default=True)
     top_sell        = models.BooleanField(default=False)
     created_at      = models.DateTimeField(auto_now_add=True)
     updated_at      = models.DateTimeField(auto_now=True)
     shop_owner      = models.BooleanField(default=False)
     # stock           
+    ordering = ['-updated_at']
 
     def get_absolute_url(self):
         return reverse("single-page", kwargs={"slug": self.slug})

@@ -25,7 +25,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">EcoAsif</a>
+          <a class="navbar-brand" href="{% url 'home-page' %}">EcoAsif</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -62,9 +62,9 @@
                       </li>
 
                       <li>
-                        <a href="{% url 'dashboard-add-product' %}" class="nav-link link-dark">
+                        <a href="{% url 'dashboard-product-list' %}" class="nav-link link-dark">
                           <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-                          <i class="uil uil-file-plus-alt"></i> Your Products
+                          <i class="uil uil-shopping-bag"></i> Your Products
                         </a>
                       </li>
 
