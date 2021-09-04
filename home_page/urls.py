@@ -8,6 +8,7 @@ urlpatterns = [
     path('search/',searchview,name='search-page'),
     path('checkout/',checkoutView,name='checkout-view'),
     path('checkout/page/',checkoutDoneView,name='checkout-done-view'),
+    path('owner/shop/',owner_shop,name='owner-shop'),
 
 
     path('category/<str:slug>/',category,name='category-page'),

@@ -6,6 +6,7 @@ from django.db.models import Sum
 from django.contrib.auth.models import User
 from accounts.models import ProfileUser
 from django.contrib.auth.decorators import login_required
+from dashboard.models import *
 
 # Create your views here.
 def homeView(request):
@@ -261,5 +262,18 @@ def checkoutView(request):
         'user':user
     }
 
+
+    return render(request,template_name,context)
+
+############
+def owner_shop(request):
+    template_name = 'home/campaign.html'
+    all_category =Category.objects.filter(active=True)
+    myshop = MyShop.objects.filter(active_shop=True)
+
+    context = {
+        'all_category': all_category,
+        'myshop':myshop,
+    }
 
     return render(request,template_name,context)
