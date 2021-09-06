@@ -142,7 +142,8 @@
     {% for cat in category %} {% if cat.feature %}
     <div class="tab-pane fade show {%if forloop.counter == 1 %} active {%endif%}" id="cat-{{cat.id}}" role="tabpanel" aria-labelledby="{{cat.slug}}-tab">
         <div class="row">
-            {% for obj in cat.product.all %} {%if obj.active and forloop.counter < 9 %} 
+            {% for obj in cat.product.all %} {%if obj.active and forloop.counter < 9 %}
+            {% if not obj.shop_owner %} 
             <div class="col-md-3 mb-1">
                 <div class="card border-0">
 
@@ -177,6 +178,7 @@
                     </div>
                 </div>
         </div>
+        {% endif %}
         {% endif %} 
         {% endfor %}
 

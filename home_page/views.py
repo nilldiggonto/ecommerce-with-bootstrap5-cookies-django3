@@ -21,16 +21,16 @@ def homeView(request):
 
 def category(request,slug=None):
     template_name = 'home/category.html'
-    product = Products.objects.filter(active=True)
-    hotproduct = Products.objects.filter(active=True)
+    product = Products.objects.filter(active=True,shop_owner=False)
+    hotproduct = Products.objects.filter(active=True,shop_owner=False)
     headline = 'All Items'
     category = None
     all_category =Category.objects.filter(active=True)
 
     if slug:
         category = get_object_or_404(Category,slug=slug)
-        product = category.product.filter(active=True)
-        hotproduct = category.product.filter(active=True)
+        product = category.product.filter(active=True,shop_owner=False)
+        hotproduct = category.product.filter(active=True,shop_owner=False)
         headline = category.name
     
 

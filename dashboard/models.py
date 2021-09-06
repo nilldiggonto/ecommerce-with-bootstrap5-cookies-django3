@@ -17,7 +17,7 @@ class MyShop(models.Model):
     updated_at  = models.DateTimeField(auto_now_add=True)
 
     def save(self,**kwargs):
-        slug_str = str(self.name)
+        slug_str = str(self.shop_name)
         unique_slugify(self,slug_str)
         return super().save(**kwargs)
 
