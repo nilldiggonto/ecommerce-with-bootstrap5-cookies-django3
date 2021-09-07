@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-
+from .models import ProfileUser
 # Create your views here.
 
 
@@ -45,6 +45,7 @@ def registrationView(request):
             # # email.attach_alternative(message, 'text/html')
             # email.send()
             # request.session['vmsg'] = True
+            ProfileUser.objects.create(profile=user)
 
             return redirect('auth-login')
     

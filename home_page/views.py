@@ -168,6 +168,7 @@ def checkoutDoneView(request):
         device = request.COOKIES['device']
     except:
         return redirect('home-page')
+    # try:
     user = User.objects.get(username=request.user.username)
     # print(user.username)
     puser= ProfileUser.objects.get(profile=user)
