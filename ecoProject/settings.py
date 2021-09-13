@@ -42,6 +42,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+# SECURE_HSTS_SECONDS = 31536000  # 1 year. Prevent browser attempting HTTP
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # protect subdomains too
+# SECURE_SSL_REDIRECT = False  # redirect HTTP to HTTPS
+# SESSION_COOKIE_SECURE = True # set secure on cookies
+
+# SECURE_BROWSER_XSS_FILTER = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_HSTS_PRELOAD = True
+
+
 ROOT_URLCONF = 'ecoProject.urls'
 
 TEMPLATES = [
