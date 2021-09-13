@@ -8,10 +8,13 @@ class MyShop(models.Model):
     # slug    = models.SlugField()
     slug        = models.SlugField(max_length=300,unique=True,null=True,blank=True)
 
-    image   = models.ImageField(upload_to='shop/')
+    image   = models.ImageField(upload_to='shop/',null=True,blank=True)
     shop_name   = models.CharField(max_length=120)
     shop_category = models.CharField(max_length=120)
     location    = models.CharField(max_length=120)
+    contact_no  = models.CharField(max_length=120,null=True,blank=True)
+    bkash_no  = models.CharField(max_length=120,null=True,blank=True)
+
     active_shop = models.BooleanField(default=True)
     created_at  = models.DateTimeField(auto_now_add=True)
     updated_at  = models.DateTimeField(auto_now_add=True)

@@ -89,6 +89,7 @@ class Order(models.Model):
     created_at  = models.DateTimeField(auto_now_add=True)
     updated_at  = models.DateTimeField(auto_now=True)
     complete    = models.BooleanField(default=False)
+    main_shop   = models.BooleanField(default=False)
     total       = models.DecimalField(decimal_places=2,max_digits=10,null=True,blank=True)
 
 

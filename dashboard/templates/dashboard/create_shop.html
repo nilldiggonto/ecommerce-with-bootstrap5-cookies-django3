@@ -6,8 +6,10 @@
 
 <div class="container">
     <div class="p-3 text-center bg-dark text-light">
-        <h4>CREATE A SHOP</h4>
+        <h4>Your Shop Information</h4>
     </div>
+
+    
  <div class="row g-1 mt-2">
      <div class="col-md-8">
    <div class="card ">
@@ -16,24 +18,34 @@
             {%csrf_token%}
             <div class="col-md-12">
               <label for="inputEmail4" class="form-label">Shop Name</label>
-              <input type="text" class="form-control" id="shopName" name="shopname" placeholder="give your shop name" required>
+              <input type="text" class="form-control" id="shopName" name="shopname" value="{{user.shop_owner.shop_name}}" placeholder="give your shop name" required>
             </div>
 
             <div class="col-md-12">
                 <label for="inputEmail4" class="form-label">Shop Type</label>
-                <input type="text" class="form-control" id="shopType" name="shoptype" placeholder="your shop type" required>
+                <input type="text" class="form-control" id="shopType" name="shoptype" value="{{user.shop_owner.shop_category}}" placeholder="your shop type" required>
             </div>
 
             <div class="col-md-12">
+              <label for="inputEmail4" class="form-label">Phone no</label>
+              <input type="text" value="{{user.shop_owner.contact_no}}" class="form-control" id="phoneNo" name="phone_no" placeholder="Enter your contact no" required>
+          </div>
+
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">Bkash no</label>
+            <input type="text" value="{{user.shop_owner.bkash_no}}" class="form-control" id="bkash" name="bkash" placeholder="Enter your bkash no" required>
+        </div>
+
+            <div class="col-md-12">
                 <label for="inputEmail4" class="form-label">Shop Address</label>
-                <input type="text" class="form-control" id="shopAddress" name="shopaddress" placeholder="give your location" required>
+                <input type="text" value="{{user.shop_owner.location}}" class="form-control" id="shopAddress" name="shopaddress" placeholder="give your location" required>
               </div>
 
               
               <div class="mb-3">
                 <label for="formFile" class="form-label">Give a shop cover photo</label>
                
-                <input class="form-control" type="file" name="pic" id="shopFile">
+                <input class="form-control" type="file" name="pic" id="shopFile" {%if not user.shop_owner.image %} required {%endif %}>
               </div>
     
             <div class="col-12">
@@ -47,7 +59,7 @@
 <div class="col-md-4">
     <div class="card">
         <div class="card-body">
-            <img src="#" id="blah" alt="" class="img-fluid">
+            <img src="{{user.shop_owner.image.url}}" id="blah" alt="" class="img-fluid">
         </div>
     </div>
 

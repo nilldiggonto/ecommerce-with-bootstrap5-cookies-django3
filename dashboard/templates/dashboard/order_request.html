@@ -13,6 +13,8 @@
                 <th scope="col">#</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Name</th>
+                <th scope="col">Requested at</th>
+
                 <th scope="col">Status</th>
                 <th scope="col">Info</th>
 
@@ -26,6 +28,7 @@
               <tr>
                 <th scope="row">{{forloop.counter}}</th>
                 <td>{{obj.phone_no}}</td>
+                <td>{{obj.created_at | timesince}}</td>
                 <td>{{obj.first_name}} {{obj.last_name}}</td>
                 <td>{% if obj.complete %} <span class="badge bg-success">Delivered</span> {%else%} <span class="badge bg-warning">Pending</span> {%endif%}</td>
                 <td><a data-bs-toggle="modal" data-bs-target="#exampleModal-{{obj.id}}" href="#" class="btn btn-sm btn-custom">view</a></td>

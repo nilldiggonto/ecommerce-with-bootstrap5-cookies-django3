@@ -5,6 +5,7 @@ from .views import *
 urlpatterns = [
     path('',dashboardView,name='dashboard-home'),
     path('create/shop/',createShoView,name='dashboard-create-shop'),
+    path('edit/shop/',editShop,name='dashboard-edit-shop'),
     path('my/shop/',myShopView,name='dashboard-shop'),
     path('add/product/',addProductView,name='dashboard-add-product'),
     path('product/list/',product_list,name='dashboard-product-list'),

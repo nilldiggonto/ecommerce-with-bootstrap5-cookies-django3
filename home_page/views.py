@@ -201,7 +201,7 @@ def confirmPaymentView(request,id=None):
     order = Order.objects.get(pk=id)
     order.complete = True
     order.save()
-    return redirect('checkout-done-view')
+    return redirect('dashboard-order-request')
 
 def checkoutView(request):
     all_category =Category.objects.filter(active=True)
@@ -216,6 +216,8 @@ def checkoutView(request):
 
     user = User.objects.get(username=request.user.username)
     cart = Cart.objects.filter(device=device,consume=False)
+    cart_owner =Cart.objects.filter(device=device,consume=False).last()
+
 
     if request.method == 'POST':
         fname = request.POST.get('fname')
@@ -254,6 +256,9 @@ def checkoutView(request):
         total = cart.aggregate(Sum('total'))
         cart_owner =Cart.objects.filter(device=device,consume=False).last()
         # print(total)
+        main_shop = False
+        if not cart_owner.cart_owner:
+            main_shop = True
 
         order = Order.objects.create(first_name=fname,
                                         last_name=lname,
@@ -266,7 +271,7 @@ def checkoutView(request):
                                         bkash_trans = bkash_trans,
                                         order_user = profileuser,
                                         device_name= device,total=total['total__sum'],
-                                        shop_owner =cart_owner.cart_owner)
+                                        shop_owner =cart_owner.cart_owner,main_shop=main_shop)
         cart.update(order=order,consume=True)
         return redirect('checkout-done-view')
         # cart.save()
@@ -274,7 +279,8 @@ def checkoutView(request):
     context = {
         'cart':cart,
         'all_category':all_category,
-        'user':user
+        'user':user,
+        'cart_owner':cart_owner
     }
 
 

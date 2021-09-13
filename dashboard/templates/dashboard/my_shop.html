@@ -8,7 +8,7 @@
     <div class="p-2 text-center bg-dark text-light">
         <h4>{{user.shop_owner.shop_name}}
             <span>
-                <a href="#" class="btn btn-sm btn-warning">EDIT</a>
+                <a href="{% url 'dashboard-edit-shop' %}" class="btn btn-sm btn-warning">EDIT</a>
             </span>
         </h4>
     </div>
@@ -21,6 +21,9 @@
             <p><b>SHOP NAME:</b> {{user.shop_owner.shop_name}}</p>
             <p><b>SHOP TYPE:</b> {{user.shop_owner.shop_category}}</p>
             <p><b>SHOP LOCATION:</b> {{user.shop_owner.location}}</p>
+            <p><b>CONTACT NO:</b> {{user.shop_owner.contact_no}}</p>
+            <p><b>Bkash NO:</b> {{user.shop_owner.bkash_no}}</p>
+
             <p><b>SHOP CREATED:</b> {{user.shop_owner.created_at | timesince}} ago</p>
 
 

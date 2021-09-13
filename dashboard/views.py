@@ -21,13 +21,41 @@ def createShoView(request):
         shoptype = request.POST.get('shoptype')
         shopaddress = request.POST.get('shopaddress')
         image = request.FILES['pic']
+        contact_no = request.POST.get('phone_no')
+        bkash_no = request.POST.get('bkash')
 
         user = User.objects.get(username=request.user.username)
-        MyShop.objects.create(owner=user,image=image,shop_name=shopname,shop_category=shoptype,location=shopaddress)
+        MyShop.objects.create(owner=user,image=image,shop_name=shopname,shop_category=shoptype,location=shopaddress,contact_no=contact_no,bkash_no=bkash_no)
         return redirect('dashboard-home')
 
 
     return render(request,template_name)
+
+@login_required(login_url='/auth/login/')
+def editShop(request):
+    template_name = 'dashboard/create_shop.html'
+    user = User.objects.get(username=request.user.username)
+    if request.method == 'POST':
+        shopname = request.POST.get('shopname')
+        shoptype = request.POST.get('shoptype')
+        shopaddress = request.POST.get('shopaddress')
+        
+        contact_no = request.POST.get('phone_no')
+        bkash_no = request.POST.get('bkash')
+        try:
+            image = request.FILES['pic']
+            user.shop_owner.image = image
+        except:
+            pass
+        user.shop_owner.shop_name = shopname
+        user.shop_owner.shop_category = shoptype
+        user.shop_owner.location = shopaddress
+        user.shop_owner.contact_no = contact_no
+        user.shop_owner.bkash_no = bkash_no
+        user.shop_owner.save()
+        return redirect('dashboard-shop')
+    return render(request,template_name,{'user':user})
+
 
 @login_required(login_url='/auth/login/')
 def myShopView(request):
@@ -171,9 +199,13 @@ def order_request_view(request):
     template_name = 'dashboard/order_request.html'
     user = User.objects.get(username=request.user.username)
     # print(user.username)
+
     orders = Order.objects.filter(shop_owner=user).order_by('-id')
     # print(orders)
     cart = Cart.objects.filter(cart_owner=user)
+    if user.is_staff:
+        orders = Order.objects.filter(main_shop=True).order_by('-id')
+        cart = Cart.objects.all()
     page = request.GET.get('page', 1)
 
     paginator = Paginator(orders, 15)

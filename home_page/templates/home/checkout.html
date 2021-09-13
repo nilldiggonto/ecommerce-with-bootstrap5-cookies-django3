@@ -175,7 +175,8 @@
 
                 <div class="col-md-12 text-center">
                     <p> <img src="https://www.logo.wine/a/logo/BKash/BKash-Icon2-Logo.wine.svg" style="width: 25px; height: 25px;" alt="">
-                        SEND MONEY TO THIS NO:012XXXXXXX</p>
+                        SEND MONEY TO THIS NO:{% if cart_owner.cart_owner %} {{cart_owner.cart_owner.shop_owner.bkash_no}} {%else %}01998044357 {%endif %}</p>
+                         
                 </div>
               <div class="col-md-6">
                 <label for="cc-name" class="form-label">Bkash no</label>
@@ -191,7 +192,7 @@
                 <small class="text-muted">make sure you write the right no</small>
 
                 <div class="invalid-feedback">
-                  Credit card number is required
+                  bkash transaction number is required
                 </div>
               </div>
 
